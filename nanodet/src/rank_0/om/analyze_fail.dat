@@ -1,0 +1,1072 @@
+# [No.1] construct_wrapper.1
+# In file D:/VSCoding/Nanodet/src/nanodetII.py(556)/    def construct(self, cls_scores, bbox_preds, res_boxes, res_labels, res_center_priors, nums_match):/
+funcgraph fg_1(
+        %para1 : Tensor(F32)[1, 2100, 80]    # cls_scores
+        , %para2 : Tensor(F32)[1, 2100, 32]    # bbox_preds
+        , %para3 : Tensor(F32)[2100, 4]    # res_boxes
+        , %para4 : Tensor(I64)[2100]    # res_labels
+        , %para5 : Tensor(F32)[2100, 4]    # res_center_priors
+        , %para6 : Tensor(I32)[1]    # nums_match
+    ) {
+
+#------------------------> 0
+    %1 = FuncGraph::fg_43(%para1, %para2, %para3, %para4, %para5, %para6)    #(Tensor(F32)[1, 2100, 80], Tensor(F32)[1, 2100, 32], Tensor(F32)[2100, 4], Tensor(I64)[2100], Tensor(F32)[2100, 4], Tensor(I32)[1])    # fg_43=construct.43 #scope: Default
+#[CNode]62
+    Primitive::Return{prim_type=1}(%1)    #(Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(589)/        return loss/#[CNode]63
+}
+# order:
+#   1: construct_wrapper.1:[CNode]62{[0]: ValueNode<FuncGraph> construct.43, [1]: cls_scores, [2]: bbox_preds, [3]: res_boxes, [4]: res_labels, [5]: res_center_priors, [6]: nums_match}
+#   2: construct_wrapper.1:[CNode]63{[0]: ValueNode<Primitive> Return, [1]: [CNode]62}
+
+
+# [No.2] construct.43
+# In file D:/VSCoding/Nanodet/src/nanodetII.py(556)/    def construct(self, cls_scores, bbox_preds, res_boxes, res_labels, res_center_priors, nums_match):/
+funcgraph fg_43(
+        %para7 : Tensor(F32)[1, 2100, 80]    # cls_scores
+        , %para8 : Tensor(F32)[1, 2100, 32]    # bbox_preds
+        , %para9 : Tensor(F32)[2100, 4]    # res_boxes
+        , %para10 : Tensor(I64)[2100]    # res_labels
+        , %para11 : Tensor(F32)[2100, 4]    # res_center_priors
+        , %para12 : Tensor(I32)[1]    # nums_match
+    ) {
+    %1 : Tuple[I64*3] = Primitive::getattr{prim_type=1}(%para7, "shape")    #(Tensor(F32)[1, 2100, 80], String) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(557)/        b = cls_scores.shape[0]/#[CNode]64
+    %2 : I64 = DoSignaturePrimitive::S-Prim-getitem{prim_type=1}(%1, I64(0))    #(Tuple[I64*3], I64) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(557)/        b = cls_scores.shape[0]/#b
+    %3 : I64 = Primitive::stop_gradient{prim_type=1}(%2)    #(I64) #scope: Default
+#[CNode]65
+    %4 : Tensor(F32)[1, 2100, 80] = DoSignaturePrimitive::S-Prim-Cast{prim_type=1}[output_names=["output"], input_names=["x", "dst_type"], SrcT=F32, DstT=F32, dst_type=F32](%para7, F32)    #(Tensor(F32)[1, 2100, 80], TypeType) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(558)/        cls_scores = self.cast(cls_scores, mstype.float32)/#cls_scores
+    %5 : Tuple[I64] = DoSignaturePrimitive::S-Prim-Shape{prim_type=1}(%para10)    #(Tensor(I64)[2100]) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(577)/        score = self.ones(F.shape(res_labels), mstype.float32)/#[CNode]66
+    %6 : Tensor(F32)[2100] = DoSignaturePrimitive::S-Prim-Ones{prim_type=1}(%5, F32)    #(Tuple[I64], TypeType) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(577)/        score = self.ones(F.shape(res_labels), mstype.float32)/#score
+    %7 : Tuple[Ellipsis,I64] = DoSignaturePrimitive::S-Prim-MakeTuple{prim_type=1}(Ellipsis[Ellipsis], I64(2))    #(Ellipsis, I64) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(568)/            self.expand_dims(res_center_priors[..., 2], -1), (1, 1, 4))) * mask_bbox/#[CNode]67
+    %8 : Tensor(F32)[2100] = DoSignaturePrimitive::S-Prim-getitem{prim_type=1}(%para11, %7)    #(Tensor(F32)[2100, 4], Tuple[Ellipsis,I64]) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(568)/            self.expand_dims(res_center_priors[..., 2], -1), (1, 1, 4))) * mask_bbox/#[CNode]68
+    %9 : I64 = DoSignaturePrimitive::S-Prim-negative{prim_type=1}(I64(1))    #(I64) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(568)/            self.expand_dims(res_center_priors[..., 2], -1), (1, 1, 4))) * mask_bbox/#[CNode]69
+    %10 : Tensor(F32)[2100, 1] = DoSignaturePrimitive::S-Prim-ExpandDims{prim_type=1}[output_names=["output"], input_names=["x", "axis"]](%8, %9)    #(Tensor(F32)[2100], I64) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(568)/            self.expand_dims(res_center_priors[..., 2], -1), (1, 1, 4))) * mask_bbox/#[CNode]70
+    %11 : Tuple[I64*3] = DoSignaturePrimitive::S-Prim-MakeTuple{prim_type=1}(I64(1), I64(1), I64(4))    #(I64, I64, I64) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(568)/            self.expand_dims(res_center_priors[..., 2], -1), (1, 1, 4))) * mask_bbox/#[CNode]71
+    %12 : Tensor(F32)[1, 2100, 4] = DoSignaturePrimitive::S-Prim-Tile{prim_type=1}[output_names=["output"], input_names=["x", "multiples"]](%10, %11)    #(Tensor(F32)[2100, 1], Tuple[I64*3]) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(567)/        mask_grid_cell_centers = (res_center_priors / self.tile(/#[CNode]72
+    %13 : Tensor(F32)[1, 2100, 4] = DoSignaturePrimitive::S-Prim-div{prim_type=1}(%para11, %12)    #(Tensor(F32)[2100, 4], Tensor(F32)[1, 2100, 4]) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(567)/        mask_grid_cell_centers = (res_center_priors / self.tile(/#[CNode]73
+    %14 : I64 = DoSignaturePrimitive::S-Prim-negative{prim_type=1}(I64(1))    #(I64) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(561)/        mask = self.cast(self.less(-1, res_labels), mstype.float32)/#[CNode]74
+    %15 : Tensor(Bool)[2100] = DoSignaturePrimitive::S-Prim-Less{prim_type=1}[output_names=["output"], input_names=["x", "y"]](%14, %para10)    #(I64, Tensor(I64)[2100]) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(561)/        mask = self.cast(self.less(-1, res_labels), mstype.float32)/#[CNode]75
+    %16 : Tensor(F32)[2100] = DoSignaturePrimitive::S-Prim-Cast{prim_type=1}[output_names=["output"], input_names=["x", "dst_type"], SrcT=F32, DstT=F32, dst_type=F32](%15, F32)    #(Tensor(Bool)[2100], TypeType) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(561)/        mask = self.cast(self.less(-1, res_labels), mstype.float32)/#mask
+    %17 : I64 = DoSignaturePrimitive::S-Prim-negative{prim_type=1}(I64(1))    #(I64) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(563)/        mask_bbox = self.tile(self.expand_dims(mask, -1), (1, 1, 4))/#[CNode]76
+    %18 : Tensor(F32)[2100, 1] = DoSignaturePrimitive::S-Prim-ExpandDims{prim_type=1}[output_names=["output"], input_names=["x", "axis"]](%16, %17)    #(Tensor(F32)[2100], I64) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(563)/        mask_bbox = self.tile(self.expand_dims(mask, -1), (1, 1, 4))/#[CNode]77
+    %19 : Tuple[I64*3] = DoSignaturePrimitive::S-Prim-MakeTuple{prim_type=1}(I64(1), I64(1), I64(4))    #(I64, I64, I64) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(563)/        mask_bbox = self.tile(self.expand_dims(mask, -1), (1, 1, 4))/#[CNode]78
+    %20 : Tensor(F32)[1, 2100, 4] = DoSignaturePrimitive::S-Prim-Tile{prim_type=1}[output_names=["output"], input_names=["x", "multiples"]](%18, %19)    #(Tensor(F32)[2100, 1], Tuple[I64*3]) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(563)/        mask_bbox = self.tile(self.expand_dims(mask, -1), (1, 1, 4))/#mask_bbox
+    %21 : Tensor(F32)[1, 2100, 4] = DoSignaturePrimitive::S-Prim-mul{prim_type=1}(%13, %20)    #(Tensor(F32)[1, 2100, 4], Tensor(F32)[1, 2100, 4]) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(567)/        mask_grid_cell_centers = (res_center_priors / self.tile(/#mask_grid_cell_centers
+    %22 : Tensor(F32)[1, 2100, 32] = DoSignaturePrimitive::S-Prim-Cast{prim_type=1}[output_names=["output"], input_names=["x", "dst_type"], SrcT=F32, DstT=F32, dst_type=F32](%para8, F32)    #(Tensor(F32)[1, 2100, 32], TypeType) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(559)/        bbox_preds = self.cast(bbox_preds, mstype.float32)/#bbox_preds
+    %23 : Tensor(F32)[1, 2100, 4] = FuncGraph::fg_79(%22)    #(Tensor(F32)[1, 2100, 32])    # fg_79=construct.79 #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(566)/        mask_bbox_pred_corners = self.integral(bbox_preds) * mask_bbox/#[CNode]80
+    %24 : Tensor(F32)[1, 2100, 4] = DoSignaturePrimitive::S-Prim-mul{prim_type=1}(%23, %20)    #(Tensor(F32)[1, 2100, 4], Tensor(F32)[1, 2100, 4]) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(566)/        mask_bbox_pred_corners = self.integral(bbox_preds) * mask_bbox/#mask_bbox_pred_corners
+    %25 : Tensor(F32)[1, 2100, 4] = FuncGraph::fg_81(%21, %24)    #(Tensor(F32)[1, 2100, 4], Tensor(F32)[1, 2100, 4])    # fg_81=construct.81 #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(571)/        decode_bbox_pred = self.distance2bbox(mask_grid_cell_centers, mask_bbox_pred_corners)/#decode_bbox_pred
+    %26 : Tuple[Ellipsis,I64] = DoSignaturePrimitive::S-Prim-MakeTuple{prim_type=1}(Ellipsis[Ellipsis], I64(2))    #(Ellipsis, I64) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(570)/            self.expand_dims(res_center_priors[..., 2], -1), (1, 1, 4))/#[CNode]82
+    %27 : Tensor(F32)[2100] = DoSignaturePrimitive::S-Prim-getitem{prim_type=1}(%para11, %26)    #(Tensor(F32)[2100, 4], Tuple[Ellipsis,I64]) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(570)/            self.expand_dims(res_center_priors[..., 2], -1), (1, 1, 4))/#[CNode]83
+    %28 : I64 = DoSignaturePrimitive::S-Prim-negative{prim_type=1}(I64(1))    #(I64) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(570)/            self.expand_dims(res_center_priors[..., 2], -1), (1, 1, 4))/#[CNode]84
+    %29 : Tensor(F32)[2100, 1] = DoSignaturePrimitive::S-Prim-ExpandDims{prim_type=1}[output_names=["output"], input_names=["x", "axis"]](%27, %28)    #(Tensor(F32)[2100], I64) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(570)/            self.expand_dims(res_center_priors[..., 2], -1), (1, 1, 4))/#[CNode]85
+    %30 : Tuple[I64*3] = DoSignaturePrimitive::S-Prim-MakeTuple{prim_type=1}(I64(1), I64(1), I64(4))    #(I64, I64, I64) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(570)/            self.expand_dims(res_center_priors[..., 2], -1), (1, 1, 4))/#[CNode]86
+    %31 : Tensor(F32)[1, 2100, 4] = DoSignaturePrimitive::S-Prim-Tile{prim_type=1}[output_names=["output"], input_names=["x", "multiples"]](%29, %30)    #(Tensor(F32)[2100, 1], Tuple[I64*3]) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(569)/        mask_decode_bbox = res_boxes / self.tile(/#[CNode]87
+    %32 : Tensor(F32)[1, 2100, 4] = DoSignaturePrimitive::S-Prim-div{prim_type=1}(%para9, %31)    #(Tensor(F32)[2100, 4], Tensor(F32)[1, 2100, 4]) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(569)/        mask_decode_bbox = res_boxes / self.tile(/#mask_decode_bbox
+
+#------------------------> 1
+    %33 = FuncGraph::fg_44(%25, %32)    #(Tensor(F32)[1, 2100, 4], Tensor(F32)[1, 2100, 4])    # fg_44=construct.44 #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(578)/        score = score * self.iou(decode_bbox_pred, mask_decode_bbox) * mask/#[CNode]88
+    %34 = DoSignaturePrimitive::S-Prim-mul{prim_type=1}(%6, %33)    #(Tensor(F32)[2100], Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(578)/        score = score * self.iou(decode_bbox_pred, mask_decode_bbox) * mask/#[CNode]89
+    %35 = DoSignaturePrimitive::S-Prim-mul{prim_type=1}(%34, %16)    #(Undefined, Tensor(F32)[2100]) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(578)/        score = score * self.iou(decode_bbox_pred, mask_decode_bbox) * mask/#score
+    %36 = FuncGraph::fg_90(%4, %para10, %35)    #(Tensor(F32)[1, 2100, 80], Tensor(I64)[2100], Undefined)    # fg_90=construct.90 #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(579)/        loss_qfl = self.loss_qfl(cls_scores, res_labels, score)/#loss_qfl
+    %37 = DoSignaturePrimitive::S-Prim-negative{prim_type=1}(I64(1))    #(Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(580)/        loss_qfl = self.reduce_sum(self.reduce_mean(loss_qfl, -1), -1)/#[CNode]91
+    %38 = DoSignaturePrimitive::S-Prim-ReduceMean{prim_type=1}[output_names=["y"], keep_dims=Bool(0), input_names=["input_x", "axis"]](%36, %37)    #(Undefined, Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(580)/        loss_qfl = self.reduce_sum(self.reduce_mean(loss_qfl, -1), -1)/#[CNode]92
+    %39 = DoSignaturePrimitive::S-Prim-negative{prim_type=1}(I64(1))    #(Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(580)/        loss_qfl = self.reduce_sum(self.reduce_mean(loss_qfl, -1), -1)/#[CNode]93
+    %40 = DoSignaturePrimitive::S-Prim-ReduceSum{prim_type=1}[output_names=["y"], keep_dims=Bool(0), input_names=["input_x", "axis"]](%38, %39)    #(Undefined, Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(580)/        loss_qfl = self.reduce_sum(self.reduce_mean(loss_qfl, -1), -1)/#loss_qfl
+    %41 = FuncGraph::fg_94(%25, %32)    #(Tensor(F32)[1, 2100, 4], Tensor(F32)[1, 2100, 4])    # fg_94=construct.94 #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(574)/        loss_bbox = self.loss_bbox(decode_bbox_pred, mask_decode_bbox) * mask/#[CNode]95
+    %42 = DoSignaturePrimitive::S-Prim-mul{prim_type=1}(%41, %16)    #(Undefined, Tensor(F32)[2100]) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(574)/        loss_bbox = self.loss_bbox(decode_bbox_pred, mask_decode_bbox) * mask/#loss_bbox
+    %43 = DoSignaturePrimitive::S-Prim-negative{prim_type=1}(I64(1))    #(Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(575)/        loss_bbox = self.reduce_sum(loss_bbox, -1)/#[CNode]96
+    %44 = DoSignaturePrimitive::S-Prim-ReduceSum{prim_type=1}[output_names=["y"], keep_dims=Bool(0), input_names=["input_x", "axis"]](%42, %43)    #(Undefined, Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(575)/        loss_bbox = self.reduce_sum(loss_bbox, -1)/#loss_bbox
+    %45 = DoSignaturePrimitive::S-Prim-mul{prim_type=1}(F32(2), %44)    #(Undefined, Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(587)/        loss = self.reduce_sum((loss_qfl + 2.0 * loss_bbox + 0.25 * loss_dfl) / nums_match)/#[CNode]97
+    %46 = DoSignaturePrimitive::S-Prim-add{prim_type=1}(%40, %45)    #(Undefined, Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(587)/        loss = self.reduce_sum((loss_qfl + 2.0 * loss_bbox + 0.25 * loss_dfl) / nums_match)/#[CNode]98
+    %47 = DoSignaturePrimitive::S-Prim-negative{prim_type=1}(I64(1))    #(Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(564)/        mask_bbox_preds = self.tile(self.expand_dims(mask, -1), (1, 1, 32))/#[CNode]99
+    %48 = DoSignaturePrimitive::S-Prim-ExpandDims{prim_type=1}[output_names=["output"], input_names=["x", "axis"]](%16, %47)    #(Tensor(F32)[2100], Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(564)/        mask_bbox_preds = self.tile(self.expand_dims(mask, -1), (1, 1, 32))/#[CNode]100
+    %49 = DoSignaturePrimitive::S-Prim-MakeTuple{prim_type=1}(I64(1), I64(1), I64(32))    #(Undefined, Undefined, Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(564)/        mask_bbox_preds = self.tile(self.expand_dims(mask, -1), (1, 1, 32))/#[CNode]101
+    %50 = DoSignaturePrimitive::S-Prim-Tile{prim_type=1}[output_names=["output"], input_names=["x", "multiples"]](%48, %49)    #(Undefined, Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(564)/        mask_bbox_preds = self.tile(self.expand_dims(mask, -1), (1, 1, 32))/#mask_bbox_preds
+    %51 = DoSignaturePrimitive::S-Prim-mul{prim_type=1}(%22, %50)    #(Tensor(F32)[1, 2100, 32], Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(582)/        pred_corners = self.reshape(bbox_preds * mask_bbox_preds, (-1, 8))/#[CNode]102
+    %52 = DoSignaturePrimitive::S-Prim-negative{prim_type=1}(I64(1))    #(Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(582)/        pred_corners = self.reshape(bbox_preds * mask_bbox_preds, (-1, 8))/#[CNode]103
+    %53 = DoSignaturePrimitive::S-Prim-MakeTuple{prim_type=1}(%52, I64(8))    #(Undefined, Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(582)/        pred_corners = self.reshape(bbox_preds * mask_bbox_preds, (-1, 8))/#[CNode]104
+    %54 = DoSignaturePrimitive::S-Prim-Reshape{prim_type=1}[output_names=["output"], input_names=["tensor", "shape"]](%51, %53)    #(Undefined, Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(582)/        pred_corners = self.reshape(bbox_preds * mask_bbox_preds, (-1, 8))/#pred_corners
+    %55 = FuncGraph::fg_105(%21, %32)    #(Tensor(F32)[1, 2100, 4], Tensor(F32)[1, 2100, 4])    # fg_105=construct.105 #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(583)/        target_corners = self.reshape(self.bbox2distance(mask_grid_cell_centers, mask_decode_bbox), (-1,))/#[CNode]106
+    %56 = DoSignaturePrimitive::S-Prim-negative{prim_type=1}(I64(1))    #(Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(583)/        target_corners = self.reshape(self.bbox2distance(mask_grid_cell_centers, mask_decode_bbox), (-1,))/#[CNode]107
+    %57 = DoSignaturePrimitive::S-Prim-MakeTuple{prim_type=1}(%56)    #(Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(583)/        target_corners = self.reshape(self.bbox2distance(mask_grid_cell_centers, mask_decode_bbox), (-1,))/#[CNode]108
+    %58 = DoSignaturePrimitive::S-Prim-Reshape{prim_type=1}[output_names=["output"], input_names=["tensor", "shape"]](%55, %57)    #(Undefined, Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(583)/        target_corners = self.reshape(self.bbox2distance(mask_grid_cell_centers, mask_decode_bbox), (-1,))/#target_corners
+    %59 = FuncGraph::fg_109(%54, %58)    #(Undefined, Undefined)    # fg_109=construct.109 #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(584)/        loss_dfl = self.loss_dfl(pred_corners, target_corners) * mask_bbox.reshape(-1)/#[CNode]110
+    %60 = Primitive::getattr{prim_type=1}(%20, "reshape")    #(Tensor(F32)[1, 2100, 4], Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(584)/        loss_dfl = self.loss_dfl(pred_corners, target_corners) * mask_bbox.reshape(-1)/#[CNode]111
+    %61 = DoSignaturePrimitive::S-Prim-negative{prim_type=1}(I64(1))    #(Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(584)/        loss_dfl = self.loss_dfl(pred_corners, target_corners) * mask_bbox.reshape(-1)/#[CNode]112
+    %62 = %60(%61)    #(Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(584)/        loss_dfl = self.loss_dfl(pred_corners, target_corners) * mask_bbox.reshape(-1)/#[CNode]113
+    %63 = DoSignaturePrimitive::S-Prim-mul{prim_type=1}(%59, %62)    #(Undefined, Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(584)/        loss_dfl = self.loss_dfl(pred_corners, target_corners) * mask_bbox.reshape(-1)/#loss_dfl
+    %64 = DoSignaturePrimitive::S-Prim-negative{prim_type=1}(I64(1))    #(Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(585)/        loss_dfl = self.reshape(loss_dfl, (-1, 2100, 4))/#[CNode]114
+    %65 = DoSignaturePrimitive::S-Prim-MakeTuple{prim_type=1}(%64, I64(2100), I64(4))    #(Undefined, Undefined, Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(585)/        loss_dfl = self.reshape(loss_dfl, (-1, 2100, 4))/#[CNode]115
+    %66 = DoSignaturePrimitive::S-Prim-Reshape{prim_type=1}[output_names=["output"], input_names=["tensor", "shape"]](%63, %65)    #(Undefined, Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(585)/        loss_dfl = self.reshape(loss_dfl, (-1, 2100, 4))/#loss_dfl
+    %67 = DoSignaturePrimitive::S-Prim-negative{prim_type=1}(I64(1))    #(Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(586)/        loss_dfl = self.reduce_sum(self.reduce_mean(loss_dfl, -1), -1)/#[CNode]116
+    %68 = DoSignaturePrimitive::S-Prim-ReduceMean{prim_type=1}[output_names=["y"], keep_dims=Bool(0), input_names=["input_x", "axis"]](%66, %67)    #(Undefined, Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(586)/        loss_dfl = self.reduce_sum(self.reduce_mean(loss_dfl, -1), -1)/#[CNode]117
+    %69 = DoSignaturePrimitive::S-Prim-negative{prim_type=1}(I64(1))    #(Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(586)/        loss_dfl = self.reduce_sum(self.reduce_mean(loss_dfl, -1), -1)/#[CNode]118
+    %70 = DoSignaturePrimitive::S-Prim-ReduceSum{prim_type=1}[output_names=["y"], keep_dims=Bool(0), input_names=["input_x", "axis"]](%68, %69)    #(Undefined, Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(586)/        loss_dfl = self.reduce_sum(self.reduce_mean(loss_dfl, -1), -1)/#loss_dfl
+    %71 = DoSignaturePrimitive::S-Prim-mul{prim_type=1}(F32(0.25), %70)    #(Undefined, Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(587)/        loss = self.reduce_sum((loss_qfl + 2.0 * loss_bbox + 0.25 * loss_dfl) / nums_match)/#[CNode]119
+    %72 = DoSignaturePrimitive::S-Prim-add{prim_type=1}(%46, %71)    #(Undefined, Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(587)/        loss = self.reduce_sum((loss_qfl + 2.0 * loss_bbox + 0.25 * loss_dfl) / nums_match)/#[CNode]120
+    %73 = DoSignaturePrimitive::S-Prim-Cast{prim_type=1}[output_names=["output"], input_names=["x", "dst_type"], SrcT=F32, DstT=F32, dst_type=F32](%para12, F32)    #(Tensor(I32)[1], Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(562)/        nums_match = self.reduce_sum(self.cast(nums_match, mstype.float32))/#[CNode]121
+    %74 = DoSignaturePrimitive::S-Prim-ReduceSum{prim_type=1}[output_names=["y"], keep_dims=Bool(0), input_names=["input_x", "axis"]](%73)    #(Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(562)/        nums_match = self.reduce_sum(self.cast(nums_match, mstype.float32))/#nums_match
+    %75 = DoSignaturePrimitive::S-Prim-div{prim_type=1}(%72, %74)    #(Undefined, Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(587)/        loss = self.reduce_sum((loss_qfl + 2.0 * loss_bbox + 0.25 * loss_dfl) / nums_match)/#[CNode]122
+    %76 = DoSignaturePrimitive::S-Prim-ReduceSum{prim_type=1}[output_names=["y"], keep_dims=Bool(0), input_names=["input_x", "axis"]](%75)    #(Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(587)/        loss = self.reduce_sum((loss_qfl + 2.0 * loss_bbox + 0.25 * loss_dfl) / nums_match)/#loss
+    %77 = Primitive::Depend{prim_type=1}[side_effect_propagate=I64(1)](%76, %3)    #(Undefined, I64) #scope: Default
+#[CNode]123
+    Primitive::Return{prim_type=1}(%77)    #(Undefined) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(589)/        return loss/#[CNode]124
+}
+# order:
+#   1: construct.43:[CNode]64{[0]: ValueNode<Primitive> getattr, [1]: cls_scores, [2]: ValueNode<StringImm> shape}
+#   2: construct.43:b{[0]: ValueNode<DoSignaturePrimitive> S-Prim-getitem, [1]: [CNode]64, [2]: ValueNode<Int64Imm> 0}
+#   3: construct.43:cls_scores{[0]: ValueNode<DoSignaturePrimitive> S-Prim-Cast, [1]: cls_scores, [2]: ValueNode<Float> Float32}
+#   4: construct.43:bbox_preds{[0]: ValueNode<DoSignaturePrimitive> S-Prim-Cast, [1]: bbox_preds, [2]: ValueNode<Float> Float32}
+#   5: construct.43:[CNode]74{[0]: ValueNode<DoSignaturePrimitive> S-Prim-negative, [1]: ValueNode<Int64Imm> 1}
+#   6: construct.43:[CNode]75{[0]: [CNode]75, [1]: [CNode]74, [2]: ValueNode<Int> Int64}
+#   7: construct.43:[CNode]75{[0]: ValueNode<DoSignaturePrimitive> S-Prim-Less, [1]: [CNode]74, [2]: res_labels}
+#   8: construct.43:mask{[0]: ValueNode<DoSignaturePrimitive> S-Prim-Cast, [1]: [CNode]75, [2]: ValueNode<Float> Float32}
+#   9: construct.43:[CNode]121{[0]: ValueNode<DoSignaturePrimitive> S-Prim-Cast, [1]: nums_match, [2]: ValueNode<Float> Float32}
+#  10: construct.43:nums_match{[0]: ValueNode<DoSignaturePrimitive> S-Prim-ReduceSum, [1]: [CNode]121}
+#  11: construct.43:[CNode]76{[0]: ValueNode<DoSignaturePrimitive> S-Prim-negative, [1]: ValueNode<Int64Imm> 1}
+#  12: construct.43:[CNode]77{[0]: ValueNode<DoSignaturePrimitive> S-Prim-ExpandDims, [1]: mask, [2]: [CNode]76}
+#  13: construct.43:[CNode]78{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MakeTuple, [1]: ValueNode<Int64Imm> 1, [2]: ValueNode<Int64Imm> 1, [3]: ValueNode<Int64Imm> 4}
+#  14: construct.43:mask_bbox{[0]: ValueNode<DoSignaturePrimitive> S-Prim-Tile, [1]: [CNode]77, [2]: [CNode]78}
+#  15: construct.43:[CNode]99{[0]: ValueNode<DoSignaturePrimitive> S-Prim-negative, [1]: ValueNode<Int64Imm> 1}
+#  16: construct.43:[CNode]100{[0]: ValueNode<DoSignaturePrimitive> S-Prim-ExpandDims, [1]: mask, [2]: [CNode]99}
+#  17: construct.43:[CNode]101{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MakeTuple, [1]: ValueNode<Int64Imm> 1, [2]: ValueNode<Int64Imm> 1, [3]: ValueNode<Int64Imm> 32}
+#  18: construct.43:mask_bbox_preds{[0]: ValueNode<DoSignaturePrimitive> S-Prim-Tile, [1]: [CNode]100, [2]: [CNode]101}
+#  19: construct.43:[CNode]80{[0]: ValueNode<FuncGraph> construct.79, [1]: bbox_preds}
+#  20: construct.43:mask_bbox_pred_corners{[0]: ValueNode<DoSignaturePrimitive> S-Prim-mul, [1]: [CNode]80, [2]: mask_bbox}
+#  21: construct.43:[CNode]67{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MakeTuple, [1]: ValueNode<Ellipsis> Ellipsis, [2]: ValueNode<Int64Imm> 2}
+#  22: construct.43:[CNode]68{[0]: ValueNode<DoSignaturePrimitive> S-Prim-getitem, [1]: res_center_priors, [2]: [CNode]67}
+#  23: construct.43:[CNode]69{[0]: ValueNode<DoSignaturePrimitive> S-Prim-negative, [1]: ValueNode<Int64Imm> 1}
+#  24: construct.43:[CNode]70{[0]: ValueNode<DoSignaturePrimitive> S-Prim-ExpandDims, [1]: [CNode]68, [2]: [CNode]69}
+#  25: construct.43:[CNode]71{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MakeTuple, [1]: ValueNode<Int64Imm> 1, [2]: ValueNode<Int64Imm> 1, [3]: ValueNode<Int64Imm> 4}
+#  26: construct.43:[CNode]72{[0]: ValueNode<DoSignaturePrimitive> S-Prim-Tile, [1]: [CNode]70, [2]: [CNode]71}
+#  27: construct.43:[CNode]73{[0]: ValueNode<DoSignaturePrimitive> S-Prim-div, [1]: res_center_priors, [2]: [CNode]72}
+#  28: construct.43:mask_grid_cell_centers{[0]: ValueNode<DoSignaturePrimitive> S-Prim-mul, [1]: [CNode]73, [2]: mask_bbox}
+#  29: construct.43:[CNode]82{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MakeTuple, [1]: ValueNode<Ellipsis> Ellipsis, [2]: ValueNode<Int64Imm> 2}
+#  30: construct.43:[CNode]83{[0]: ValueNode<DoSignaturePrimitive> S-Prim-getitem, [1]: res_center_priors, [2]: [CNode]82}
+#  31: construct.43:[CNode]84{[0]: ValueNode<DoSignaturePrimitive> S-Prim-negative, [1]: ValueNode<Int64Imm> 1}
+#  32: construct.43:[CNode]85{[0]: ValueNode<DoSignaturePrimitive> S-Prim-ExpandDims, [1]: [CNode]83, [2]: [CNode]84}
+#  33: construct.43:[CNode]86{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MakeTuple, [1]: ValueNode<Int64Imm> 1, [2]: ValueNode<Int64Imm> 1, [3]: ValueNode<Int64Imm> 4}
+#  34: construct.43:[CNode]87{[0]: ValueNode<DoSignaturePrimitive> S-Prim-Tile, [1]: [CNode]85, [2]: [CNode]86}
+#  35: construct.43:mask_decode_bbox{[0]: ValueNode<DoSignaturePrimitive> S-Prim-div, [1]: res_boxes, [2]: [CNode]87}
+#  36: construct.43:decode_bbox_pred{[0]: ValueNode<FuncGraph> construct.81, [1]: mask_grid_cell_centers, [2]: mask_bbox_pred_corners}
+#  37: construct.43:[CNode]95{[0]: ValueNode<FuncGraph> construct.94, [1]: decode_bbox_pred, [2]: mask_decode_bbox}
+#  38: construct.43:loss_bbox{[0]: ValueNode<DoSignaturePrimitive> S-Prim-mul, [1]: [CNode]95, [2]: mask}
+#  39: construct.43:[CNode]96{[0]: ValueNode<DoSignaturePrimitive> S-Prim-negative, [1]: ValueNode<Int64Imm> 1}
+#  40: construct.43:loss_bbox{[0]: ValueNode<DoSignaturePrimitive> S-Prim-ReduceSum, [1]: loss_bbox, [2]: [CNode]96}
+#  41: construct.43:[CNode]66{[0]: ValueNode<DoSignaturePrimitive> S-Prim-Shape, [1]: res_labels}
+#  42: construct.43:score{[0]: ValueNode<DoSignaturePrimitive> S-Prim-Ones, [1]: [CNode]66, [2]: ValueNode<Float> Float32}
+#  43: construct.43:[CNode]88{[0]: ValueNode<FuncGraph> construct.44, [1]: decode_bbox_pred, [2]: mask_decode_bbox}
+#  44: construct.43:[CNode]89{[0]: ValueNode<DoSignaturePrimitive> S-Prim-mul, [1]: score, [2]: [CNode]88}
+#  45: construct.43:score{[0]: ValueNode<DoSignaturePrimitive> S-Prim-mul, [1]: [CNode]89, [2]: mask}
+#  46: construct.43:loss_qfl{[0]: ValueNode<FuncGraph> construct.90, [1]: cls_scores, [2]: res_labels, [3]: score}
+#  47: construct.43:[CNode]91{[0]: ValueNode<DoSignaturePrimitive> S-Prim-negative, [1]: ValueNode<Int64Imm> 1}
+#  48: construct.43:[CNode]92{[0]: ValueNode<DoSignaturePrimitive> S-Prim-ReduceMean, [1]: loss_qfl, [2]: [CNode]91}
+#  49: construct.43:[CNode]93{[0]: ValueNode<DoSignaturePrimitive> S-Prim-negative, [1]: ValueNode<Int64Imm> 1}
+#  50: construct.43:loss_qfl{[0]: ValueNode<DoSignaturePrimitive> S-Prim-ReduceSum, [1]: [CNode]92, [2]: [CNode]93}
+#  51: construct.43:[CNode]102{[0]: ValueNode<DoSignaturePrimitive> S-Prim-mul, [1]: bbox_preds, [2]: mask_bbox_preds}
+#  52: construct.43:[CNode]103{[0]: ValueNode<DoSignaturePrimitive> S-Prim-negative, [1]: ValueNode<Int64Imm> 1}
+#  53: construct.43:[CNode]104{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MakeTuple, [1]: [CNode]103, [2]: ValueNode<Int64Imm> 8}
+#  54: construct.43:pred_corners{[0]: ValueNode<DoSignaturePrimitive> S-Prim-Reshape, [1]: [CNode]102, [2]: [CNode]104}
+#  55: construct.43:[CNode]106{[0]: ValueNode<FuncGraph> construct.105, [1]: mask_grid_cell_centers, [2]: mask_decode_bbox}
+#  56: construct.43:[CNode]107{[0]: ValueNode<DoSignaturePrimitive> S-Prim-negative, [1]: ValueNode<Int64Imm> 1}
+#  57: construct.43:[CNode]108{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MakeTuple, [1]: [CNode]107}
+#  58: construct.43:target_corners{[0]: ValueNode<DoSignaturePrimitive> S-Prim-Reshape, [1]: [CNode]106, [2]: [CNode]108}
+#  59: construct.43:[CNode]110{[0]: ValueNode<FuncGraph> construct.109, [1]: pred_corners, [2]: target_corners}
+#  60: construct.43:[CNode]111{[0]: ValueNode<Primitive> getattr, [1]: mask_bbox, [2]: ValueNode<StringImm> reshape}
+#  61: construct.43:[CNode]112{[0]: ValueNode<DoSignaturePrimitive> S-Prim-negative, [1]: ValueNode<Int64Imm> 1}
+#  62: construct.43:[CNode]113{[0]: [CNode]111, [1]: [CNode]112}
+#  63: construct.43:loss_dfl{[0]: ValueNode<DoSignaturePrimitive> S-Prim-mul, [1]: [CNode]110, [2]: [CNode]113}
+#  64: construct.43:[CNode]114{[0]: ValueNode<DoSignaturePrimitive> S-Prim-negative, [1]: ValueNode<Int64Imm> 1}
+#  65: construct.43:[CNode]115{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MakeTuple, [1]: [CNode]114, [2]: ValueNode<Int64Imm> 2100, [3]: ValueNode<Int64Imm> 4}
+#  66: construct.43:loss_dfl{[0]: ValueNode<DoSignaturePrimitive> S-Prim-Reshape, [1]: loss_dfl, [2]: [CNode]115}
+#  67: construct.43:[CNode]116{[0]: ValueNode<DoSignaturePrimitive> S-Prim-negative, [1]: ValueNode<Int64Imm> 1}
+#  68: construct.43:[CNode]117{[0]: ValueNode<DoSignaturePrimitive> S-Prim-ReduceMean, [1]: loss_dfl, [2]: [CNode]116}
+#  69: construct.43:[CNode]118{[0]: ValueNode<DoSignaturePrimitive> S-Prim-negative, [1]: ValueNode<Int64Imm> 1}
+#  70: construct.43:loss_dfl{[0]: ValueNode<DoSignaturePrimitive> S-Prim-ReduceSum, [1]: [CNode]117, [2]: [CNode]118}
+#  71: construct.43:[CNode]97{[0]: ValueNode<DoSignaturePrimitive> S-Prim-mul, [1]: ValueNode<FP32Imm> 2.000000, [2]: loss_bbox}
+#  72: construct.43:[CNode]98{[0]: ValueNode<DoSignaturePrimitive> S-Prim-add, [1]: loss_qfl, [2]: [CNode]97}
+#  73: construct.43:[CNode]119{[0]: ValueNode<DoSignaturePrimitive> S-Prim-mul, [1]: ValueNode<FP32Imm> 0.250000, [2]: loss_dfl}
+#  74: construct.43:[CNode]120{[0]: ValueNode<DoSignaturePrimitive> S-Prim-add, [1]: [CNode]98, [2]: [CNode]119}
+#  75: construct.43:[CNode]122{[0]: ValueNode<DoSignaturePrimitive> S-Prim-div, [1]: [CNode]120, [2]: nums_match}
+#  76: construct.43:loss{[0]: ValueNode<DoSignaturePrimitive> S-Prim-ReduceSum, [1]: [CNode]122}
+#  77: construct.43:[CNode]124{[0]: ValueNode<Primitive> Return, [1]: [CNode]123}
+
+
+# [No.3] construct.44
+# In file D:/VSCoding/Nanodet/src/nanodetII.py(459)/    def construct(self, box_p, box_gt):/
+funcgraph fg_44(
+        %para13 : Tensor(F32)[1, 2100, 4]    # box_p
+        , %para14 : Tensor(F32)[1, 2100, 4]    # box_gt
+    ) {
+    %1 : Slice[Int64 : Int64 : kMetaTypeNone] = DoSignaturePrimitive::S-Prim-make_slice{prim_type=1}(I64(2), I64(3), None)    #(I64, I64, NoneType) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(465)/        y_2 = self.min(box_p[..., 2:3], box_gt[..., 2:3])/#[CNode]125
+    %2 : Tuple[Ellipsis,Slice[Int64 : Int64 : kMetaTypeNone]] = DoSignaturePrimitive::S-Prim-MakeTuple{prim_type=1}(Ellipsis[Ellipsis], %1)    #(Ellipsis, Slice[Int64 : Int64 : kMetaTypeNone]) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(465)/        y_2 = self.min(box_p[..., 2:3], box_gt[..., 2:3])/#[CNode]126
+    %3 : Tensor(F32)[1, 2100, 1] = DoSignaturePrimitive::S-Prim-getitem{prim_type=1}(%para13, %2)    #(Tensor(F32)[1, 2100, 4], Tuple[Ellipsis,Slice[Int64 : Int64 : kMetaTypeNone]]) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(465)/        y_2 = self.min(box_p[..., 2:3], box_gt[..., 2:3])/#[CNode]127
+    %4 : Slice[Int64 : Int64 : kMetaTypeNone] = DoSignaturePrimitive::S-Prim-make_slice{prim_type=1}(I64(2), I64(3), None)    #(I64, I64, NoneType) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(465)/        y_2 = self.min(box_p[..., 2:3], box_gt[..., 2:3])/#[CNode]128
+    %5 : Tuple[Ellipsis,Slice[Int64 : Int64 : kMetaTypeNone]] = DoSignaturePrimitive::S-Prim-MakeTuple{prim_type=1}(Ellipsis[Ellipsis], %4)    #(Ellipsis, Slice[Int64 : Int64 : kMetaTypeNone]) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(465)/        y_2 = self.min(box_p[..., 2:3], box_gt[..., 2:3])/#[CNode]129
+    %6 : Tensor(F32)[1, 2100, 1] = DoSignaturePrimitive::S-Prim-getitem{prim_type=1}(%para14, %5)    #(Tensor(F32)[1, 2100, 4], Tuple[Ellipsis,Slice[Int64 : Int64 : kMetaTypeNone]]) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(465)/        y_2 = self.min(box_p[..., 2:3], box_gt[..., 2:3])/#[CNode]130
+    %7 : Tensor(F32)[1, 2100, 1] = DoSignaturePrimitive::S-Prim-Minimum{prim_type=1}[output_names=["output"], input_names=["x", "y"]](%3, %6)    #(Tensor(F32)[1, 2100, 1], Tensor(F32)[1, 2100, 1]) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(465)/        y_2 = self.min(box_p[..., 2:3], box_gt[..., 2:3])/#y_2
+    %8 : Slice[Int64 : Int64 : kMetaTypeNone] = DoSignaturePrimitive::S-Prim-make_slice{prim_type=1}(I64(0), I64(1), None)    #(I64, I64, NoneType) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(463)/        y_1 = self.max(box_p[..., 0:1], box_gt[..., 0:1])/#[CNode]131
+    %9 : Tuple[Ellipsis,Slice[Int64 : Int64 : kMetaTypeNone]] = DoSignaturePrimitive::S-Prim-MakeTuple{prim_type=1}(Ellipsis[Ellipsis], %8)    #(Ellipsis, Slice[Int64 : Int64 : kMetaTypeNone]) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(463)/        y_1 = self.max(box_p[..., 0:1], box_gt[..., 0:1])/#[CNode]132
+    %10 : Tensor(F32)[1, 2100, 1] = DoSignaturePrimitive::S-Prim-getitem{prim_type=1}(%para13, %9)    #(Tensor(F32)[1, 2100, 4], Tuple[Ellipsis,Slice[Int64 : Int64 : kMetaTypeNone]]) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(463)/        y_1 = self.max(box_p[..., 0:1], box_gt[..., 0:1])/#[CNode]133
+    %11 : Slice[Int64 : Int64 : kMetaTypeNone] = DoSignaturePrimitive::S-Prim-make_slice{prim_type=1}(I64(0), I64(1), None)    #(I64, I64, NoneType) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(463)/        y_1 = self.max(box_p[..., 0:1], box_gt[..., 0:1])/#[CNode]134
+    %12 : Tuple[Ellipsis,Slice[Int64 : Int64 : kMetaTypeNone]] = DoSignaturePrimitive::S-Prim-MakeTuple{prim_type=1}(Ellipsis[Ellipsis], %11)    #(Ellipsis, Slice[Int64 : Int64 : kMetaTypeNone]) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(463)/        y_1 = self.max(box_p[..., 0:1], box_gt[..., 0:1])/#[CNode]135
+    %13 : Tensor(F32)[1, 2100, 1] = DoSignaturePrimitive::S-Prim-getitem{prim_type=1}(%para14, %12)    #(Tensor(F32)[1, 2100, 4], Tuple[Ellipsis,Slice[Int64 : Int64 : kMetaTypeNone]]) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(463)/        y_1 = self.max(box_p[..., 0:1], box_gt[..., 0:1])/#[CNode]136
+    %14 : Tensor(F32)[1, 2100, 1] = DoSignaturePrimitive::S-Prim-Maximum{prim_type=1}[output_names=["output"], input_names=["x", "y"]](%10, %13)    #(Tensor(F32)[1, 2100, 1], Tensor(F32)[1, 2100, 1]) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(463)/        y_1 = self.max(box_p[..., 0:1], box_gt[..., 0:1])/#y_1
+    %15 : Tensor(F32)[1, 2100, 1] = DoSignaturePrimitive::S-Prim-sub{prim_type=1}(%7, %14)    #(Tensor(F32)[1, 2100, 1], Tensor(F32)[1, 2100, 1]) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(467)/        intersection = (y_2 - y_1) * (x_2 - x_1)/#[CNode]137
+    %16 : Slice[Int64 : Int64 : kMetaTypeNone] = DoSignaturePrimitive::S-Prim-make_slice{prim_type=1}(I64(3), I64(4), None)    #(I64, I64, NoneType) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(466)/        x_2 = self.min(box_p[..., 3:4], box_gt[..., 3:4])/#[CNode]138
+    %17 : Tuple[Ellipsis,Slice[Int64 : Int64 : kMetaTypeNone]] = DoSignaturePrimitive::S-Prim-MakeTuple{prim_type=1}(Ellipsis[Ellipsis], %16)    #(Ellipsis, Slice[Int64 : Int64 : kMetaTypeNone]) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(466)/        x_2 = self.min(box_p[..., 3:4], box_gt[..., 3:4])/#[CNode]139
+    %18 : Tensor(F32)[1, 2100, 1] = DoSignaturePrimitive::S-Prim-getitem{prim_type=1}(%para13, %17)    #(Tensor(F32)[1, 2100, 4], Tuple[Ellipsis,Slice[Int64 : Int64 : kMetaTypeNone]]) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(466)/        x_2 = self.min(box_p[..., 3:4], box_gt[..., 3:4])/#[CNode]140
+    %19 : Slice[Int64 : Int64 : kMetaTypeNone] = DoSignaturePrimitive::S-Prim-make_slice{prim_type=1}(I64(3), I64(4), None)    #(I64, I64, NoneType) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(466)/        x_2 = self.min(box_p[..., 3:4], box_gt[..., 3:4])/#[CNode]141
+    %20 : Tuple[Ellipsis,Slice[Int64 : Int64 : kMetaTypeNone]] = DoSignaturePrimitive::S-Prim-MakeTuple{prim_type=1}(Ellipsis[Ellipsis], %19)    #(Ellipsis, Slice[Int64 : Int64 : kMetaTypeNone]) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(466)/        x_2 = self.min(box_p[..., 3:4], box_gt[..., 3:4])/#[CNode]142
+
+#------------------------> 2
+    %21 = DoSignaturePrimitive::S-Prim-getitem{prim_type=1}(%para14, %20)    #(Tensor(F32)[1, 2100, 4], Tuple[Ellipsis,Slice[Int64 : Int64 : kMetaTypeNone]]) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(466)/        x_2 = self.min(box_p[..., 3:4], box_gt[..., 3:4])/#[CNode]143
+    %22 = DoSignaturePrimitive::S-Prim-Minimum{prim_type=1}[output_names=["output"], input_names=["x", "y"]](%18, %21)    #(Tensor(F32)[1, 2100, 1], Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(466)/        x_2 = self.min(box_p[..., 3:4], box_gt[..., 3:4])/#x_2
+    %23 = DoSignaturePrimitive::S-Prim-make_slice{prim_type=1}(I64(1), I64(2), None)    #(Undefined, Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(464)/        x_1 = self.max(box_p[..., 1:2], box_gt[..., 1:2])/#[CNode]144
+    %24 = DoSignaturePrimitive::S-Prim-MakeTuple{prim_type=1}(Ellipsis[Ellipsis], %23)    #(Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(464)/        x_1 = self.max(box_p[..., 1:2], box_gt[..., 1:2])/#[CNode]145
+    %25 = DoSignaturePrimitive::S-Prim-getitem{prim_type=1}(%para13, %24)    #(Tensor(F32)[1, 2100, 4], Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(464)/        x_1 = self.max(box_p[..., 1:2], box_gt[..., 1:2])/#[CNode]146
+    %26 = DoSignaturePrimitive::S-Prim-make_slice{prim_type=1}(I64(1), I64(2), None)    #(Undefined, Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(464)/        x_1 = self.max(box_p[..., 1:2], box_gt[..., 1:2])/#[CNode]147
+    %27 = DoSignaturePrimitive::S-Prim-MakeTuple{prim_type=1}(Ellipsis[Ellipsis], %26)    #(Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(464)/        x_1 = self.max(box_p[..., 1:2], box_gt[..., 1:2])/#[CNode]148
+    %28 = DoSignaturePrimitive::S-Prim-getitem{prim_type=1}(%para14, %27)    #(Tensor(F32)[1, 2100, 4], Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(464)/        x_1 = self.max(box_p[..., 1:2], box_gt[..., 1:2])/#[CNode]149
+    %29 = DoSignaturePrimitive::S-Prim-Maximum{prim_type=1}[output_names=["output"], input_names=["x", "y"]](%25, %28)    #(Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(464)/        x_1 = self.max(box_p[..., 1:2], box_gt[..., 1:2])/#x_1
+    %30 = DoSignaturePrimitive::S-Prim-sub{prim_type=1}(%22, %29)    #(Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(467)/        intersection = (y_2 - y_1) * (x_2 - x_1)/#[CNode]150
+    %31 = DoSignaturePrimitive::S-Prim-mul{prim_type=1}(%15, %30)    #(Tensor(F32)[1, 2100, 1], Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(467)/        intersection = (y_2 - y_1) * (x_2 - x_1)/#intersection
+    %32 = DoSignaturePrimitive::S-Prim-Cast{prim_type=1}[output_names=["output"], input_names=["x", "dst_type"]](%31, F32)    #(Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(470)/        iou = self.div(self.cast(intersection, ms.float32), self.cast(union, ms.float32))/#[CNode]151
+    %33 = DoSignaturePrimitive::S-Prim-make_slice{prim_type=1}(I64(3), I64(4), None)    #(Undefined, Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(461)/        box_p_area = (box_p[..., 3:4] - box_p[..., 1:2]) * (box_p[..., 2:3] - box_p[..., 0:1])/#[CNode]152
+    %34 = DoSignaturePrimitive::S-Prim-MakeTuple{prim_type=1}(Ellipsis[Ellipsis], %33)    #(Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(461)/        box_p_area = (box_p[..., 3:4] - box_p[..., 1:2]) * (box_p[..., 2:3] - box_p[..., 0:1])/#[CNode]153
+    %35 = DoSignaturePrimitive::S-Prim-getitem{prim_type=1}(%para13, %34)    #(Tensor(F32)[1, 2100, 4], Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(461)/        box_p_area = (box_p[..., 3:4] - box_p[..., 1:2]) * (box_p[..., 2:3] - box_p[..., 0:1])/#[CNode]154
+    %36 = DoSignaturePrimitive::S-Prim-make_slice{prim_type=1}(I64(1), I64(2), None)    #(Undefined, Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(461)/        box_p_area = (box_p[..., 3:4] - box_p[..., 1:2]) * (box_p[..., 2:3] - box_p[..., 0:1])/#[CNode]155
+    %37 = DoSignaturePrimitive::S-Prim-MakeTuple{prim_type=1}(Ellipsis[Ellipsis], %36)    #(Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(461)/        box_p_area = (box_p[..., 3:4] - box_p[..., 1:2]) * (box_p[..., 2:3] - box_p[..., 0:1])/#[CNode]156
+    %38 = DoSignaturePrimitive::S-Prim-getitem{prim_type=1}(%para13, %37)    #(Tensor(F32)[1, 2100, 4], Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(461)/        box_p_area = (box_p[..., 3:4] - box_p[..., 1:2]) * (box_p[..., 2:3] - box_p[..., 0:1])/#[CNode]157
+    %39 = DoSignaturePrimitive::S-Prim-sub{prim_type=1}(%35, %38)    #(Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(461)/        box_p_area = (box_p[..., 3:4] - box_p[..., 1:2]) * (box_p[..., 2:3] - box_p[..., 0:1])/#[CNode]158
+    %40 = DoSignaturePrimitive::S-Prim-make_slice{prim_type=1}(I64(2), I64(3), None)    #(Undefined, Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(461)/        box_p_area = (box_p[..., 3:4] - box_p[..., 1:2]) * (box_p[..., 2:3] - box_p[..., 0:1])/#[CNode]159
+    %41 = DoSignaturePrimitive::S-Prim-MakeTuple{prim_type=1}(Ellipsis[Ellipsis], %40)    #(Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(461)/        box_p_area = (box_p[..., 3:4] - box_p[..., 1:2]) * (box_p[..., 2:3] - box_p[..., 0:1])/#[CNode]160
+    %42 = DoSignaturePrimitive::S-Prim-getitem{prim_type=1}(%para13, %41)    #(Tensor(F32)[1, 2100, 4], Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(461)/        box_p_area = (box_p[..., 3:4] - box_p[..., 1:2]) * (box_p[..., 2:3] - box_p[..., 0:1])/#[CNode]161
+    %43 = DoSignaturePrimitive::S-Prim-make_slice{prim_type=1}(I64(0), I64(1), None)    #(Undefined, Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(461)/        box_p_area = (box_p[..., 3:4] - box_p[..., 1:2]) * (box_p[..., 2:3] - box_p[..., 0:1])/#[CNode]162
+    %44 = DoSignaturePrimitive::S-Prim-MakeTuple{prim_type=1}(Ellipsis[Ellipsis], %43)    #(Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(461)/        box_p_area = (box_p[..., 3:4] - box_p[..., 1:2]) * (box_p[..., 2:3] - box_p[..., 0:1])/#[CNode]163
+    %45 = DoSignaturePrimitive::S-Prim-getitem{prim_type=1}(%para13, %44)    #(Tensor(F32)[1, 2100, 4], Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(461)/        box_p_area = (box_p[..., 3:4] - box_p[..., 1:2]) * (box_p[..., 2:3] - box_p[..., 0:1])/#[CNode]164
+    %46 = DoSignaturePrimitive::S-Prim-sub{prim_type=1}(%42, %45)    #(Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(461)/        box_p_area = (box_p[..., 3:4] - box_p[..., 1:2]) * (box_p[..., 2:3] - box_p[..., 0:1])/#[CNode]165
+    %47 = DoSignaturePrimitive::S-Prim-mul{prim_type=1}(%39, %46)    #(Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(461)/        box_p_area = (box_p[..., 3:4] - box_p[..., 1:2]) * (box_p[..., 2:3] - box_p[..., 0:1])/#box_p_area
+    %48 = DoSignaturePrimitive::S-Prim-make_slice{prim_type=1}(I64(3), I64(4), None)    #(Undefined, Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(462)/        box_gt_area = (box_gt[..., 3:4] - box_gt[..., 1:2]) * (box_gt[..., 2:3] - box_gt[..., 0:1])/#[CNode]166
+    %49 = DoSignaturePrimitive::S-Prim-MakeTuple{prim_type=1}(Ellipsis[Ellipsis], %48)    #(Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(462)/        box_gt_area = (box_gt[..., 3:4] - box_gt[..., 1:2]) * (box_gt[..., 2:3] - box_gt[..., 0:1])/#[CNode]167
+    %50 = DoSignaturePrimitive::S-Prim-getitem{prim_type=1}(%para14, %49)    #(Tensor(F32)[1, 2100, 4], Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(462)/        box_gt_area = (box_gt[..., 3:4] - box_gt[..., 1:2]) * (box_gt[..., 2:3] - box_gt[..., 0:1])/#[CNode]168
+    %51 = DoSignaturePrimitive::S-Prim-make_slice{prim_type=1}(I64(1), I64(2), None)    #(Undefined, Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(462)/        box_gt_area = (box_gt[..., 3:4] - box_gt[..., 1:2]) * (box_gt[..., 2:3] - box_gt[..., 0:1])/#[CNode]169
+    %52 = DoSignaturePrimitive::S-Prim-MakeTuple{prim_type=1}(Ellipsis[Ellipsis], %51)    #(Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(462)/        box_gt_area = (box_gt[..., 3:4] - box_gt[..., 1:2]) * (box_gt[..., 2:3] - box_gt[..., 0:1])/#[CNode]170
+    %53 = DoSignaturePrimitive::S-Prim-getitem{prim_type=1}(%para14, %52)    #(Tensor(F32)[1, 2100, 4], Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(462)/        box_gt_area = (box_gt[..., 3:4] - box_gt[..., 1:2]) * (box_gt[..., 2:3] - box_gt[..., 0:1])/#[CNode]171
+    %54 = DoSignaturePrimitive::S-Prim-sub{prim_type=1}(%50, %53)    #(Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(462)/        box_gt_area = (box_gt[..., 3:4] - box_gt[..., 1:2]) * (box_gt[..., 2:3] - box_gt[..., 0:1])/#[CNode]172
+    %55 = DoSignaturePrimitive::S-Prim-make_slice{prim_type=1}(I64(2), I64(3), None)    #(Undefined, Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(462)/        box_gt_area = (box_gt[..., 3:4] - box_gt[..., 1:2]) * (box_gt[..., 2:3] - box_gt[..., 0:1])/#[CNode]173
+    %56 = DoSignaturePrimitive::S-Prim-MakeTuple{prim_type=1}(Ellipsis[Ellipsis], %55)    #(Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(462)/        box_gt_area = (box_gt[..., 3:4] - box_gt[..., 1:2]) * (box_gt[..., 2:3] - box_gt[..., 0:1])/#[CNode]174
+    %57 = DoSignaturePrimitive::S-Prim-getitem{prim_type=1}(%para14, %56)    #(Tensor(F32)[1, 2100, 4], Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(462)/        box_gt_area = (box_gt[..., 3:4] - box_gt[..., 1:2]) * (box_gt[..., 2:3] - box_gt[..., 0:1])/#[CNode]175
+    %58 = DoSignaturePrimitive::S-Prim-make_slice{prim_type=1}(I64(0), I64(1), None)    #(Undefined, Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(462)/        box_gt_area = (box_gt[..., 3:4] - box_gt[..., 1:2]) * (box_gt[..., 2:3] - box_gt[..., 0:1])/#[CNode]176
+    %59 = DoSignaturePrimitive::S-Prim-MakeTuple{prim_type=1}(Ellipsis[Ellipsis], %58)    #(Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(462)/        box_gt_area = (box_gt[..., 3:4] - box_gt[..., 1:2]) * (box_gt[..., 2:3] - box_gt[..., 0:1])/#[CNode]177
+    %60 = DoSignaturePrimitive::S-Prim-getitem{prim_type=1}(%para14, %59)    #(Tensor(F32)[1, 2100, 4], Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(462)/        box_gt_area = (box_gt[..., 3:4] - box_gt[..., 1:2]) * (box_gt[..., 2:3] - box_gt[..., 0:1])/#[CNode]178
+    %61 = DoSignaturePrimitive::S-Prim-sub{prim_type=1}(%57, %60)    #(Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(462)/        box_gt_area = (box_gt[..., 3:4] - box_gt[..., 1:2]) * (box_gt[..., 2:3] - box_gt[..., 0:1])/#[CNode]179
+    %62 = DoSignaturePrimitive::S-Prim-mul{prim_type=1}(%54, %61)    #(Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(462)/        box_gt_area = (box_gt[..., 3:4] - box_gt[..., 1:2]) * (box_gt[..., 2:3] - box_gt[..., 0:1])/#box_gt_area
+    %63 = DoSignaturePrimitive::S-Prim-add{prim_type=1}(%47, %62)    #(Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(468)/        union = box_p_area + box_gt_area - intersection/#[CNode]180
+    %64 = DoSignaturePrimitive::S-Prim-sub{prim_type=1}(%63, %31)    #(Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(468)/        union = box_p_area + box_gt_area - intersection/#union
+    %65 = DoSignaturePrimitive::S-Prim-add{prim_type=1}(%64, F32(1e-006))    #(Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(469)/        union = union + self.eps/#union
+    %66 = DoSignaturePrimitive::S-Prim-Cast{prim_type=1}[output_names=["output"], input_names=["x", "dst_type"]](%65, F32)    #(Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(470)/        iou = self.div(self.cast(intersection, ms.float32), self.cast(union, ms.float32))/#[CNode]181
+    %67 = DoSignaturePrimitive::S-Prim-RealDiv{prim_type=1}[output_names=["output"], input_names=["x", "y"]](%32, %66)    #(Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(470)/        iou = self.div(self.cast(intersection, ms.float32), self.cast(union, ms.float32))/#iou
+    %68 = Primitive::getattr{prim_type=1}(%67, "squeeze")    #(Undefined, Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(471)/        iou = iou.squeeze(-1)/#[CNode]182
+    %69 = DoSignaturePrimitive::S-Prim-negative{prim_type=1}(I64(1))    #(Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(471)/        iou = iou.squeeze(-1)/#[CNode]183
+    %70 = %68(%69)    #(Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(471)/        iou = iou.squeeze(-1)/#iou
+    Primitive::Return{prim_type=1}(%70)    #(Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(472)/        return iou/#[CNode]184
+}
+# order:
+#   1: construct.44:[CNode]152{[0]: ValueNode<DoSignaturePrimitive> S-Prim-make_slice, [1]: ValueNode<Int64Imm> 3, [2]: ValueNode<Int64Imm> 4, [3]: ValueNode<None> None}
+#   2: construct.44:[CNode]153{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MakeTuple, [1]: ValueNode<Ellipsis> Ellipsis, [2]: [CNode]152}
+#   3: construct.44:[CNode]154{[0]: ValueNode<DoSignaturePrimitive> S-Prim-getitem, [1]: box_p, [2]: [CNode]153}
+#   4: construct.44:[CNode]155{[0]: ValueNode<DoSignaturePrimitive> S-Prim-make_slice, [1]: ValueNode<Int64Imm> 1, [2]: ValueNode<Int64Imm> 2, [3]: ValueNode<None> None}
+#   5: construct.44:[CNode]156{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MakeTuple, [1]: ValueNode<Ellipsis> Ellipsis, [2]: [CNode]155}
+#   6: construct.44:[CNode]157{[0]: ValueNode<DoSignaturePrimitive> S-Prim-getitem, [1]: box_p, [2]: [CNode]156}
+#   7: construct.44:[CNode]158{[0]: ValueNode<DoSignaturePrimitive> S-Prim-sub, [1]: [CNode]154, [2]: [CNode]157}
+#   8: construct.44:[CNode]159{[0]: ValueNode<DoSignaturePrimitive> S-Prim-make_slice, [1]: ValueNode<Int64Imm> 2, [2]: ValueNode<Int64Imm> 3, [3]: ValueNode<None> None}
+#   9: construct.44:[CNode]160{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MakeTuple, [1]: ValueNode<Ellipsis> Ellipsis, [2]: [CNode]159}
+#  10: construct.44:[CNode]161{[0]: ValueNode<DoSignaturePrimitive> S-Prim-getitem, [1]: box_p, [2]: [CNode]160}
+#  11: construct.44:[CNode]162{[0]: ValueNode<DoSignaturePrimitive> S-Prim-make_slice, [1]: ValueNode<Int64Imm> 0, [2]: ValueNode<Int64Imm> 1, [3]: ValueNode<None> None}
+#  12: construct.44:[CNode]163{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MakeTuple, [1]: ValueNode<Ellipsis> Ellipsis, [2]: [CNode]162}
+#  13: construct.44:[CNode]164{[0]: ValueNode<DoSignaturePrimitive> S-Prim-getitem, [1]: box_p, [2]: [CNode]163}
+#  14: construct.44:[CNode]165{[0]: ValueNode<DoSignaturePrimitive> S-Prim-sub, [1]: [CNode]161, [2]: [CNode]164}
+#  15: construct.44:box_p_area{[0]: ValueNode<DoSignaturePrimitive> S-Prim-mul, [1]: [CNode]158, [2]: [CNode]165}
+#  16: construct.44:[CNode]166{[0]: ValueNode<DoSignaturePrimitive> S-Prim-make_slice, [1]: ValueNode<Int64Imm> 3, [2]: ValueNode<Int64Imm> 4, [3]: ValueNode<None> None}
+#  17: construct.44:[CNode]167{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MakeTuple, [1]: ValueNode<Ellipsis> Ellipsis, [2]: [CNode]166}
+#  18: construct.44:[CNode]168{[0]: ValueNode<DoSignaturePrimitive> S-Prim-getitem, [1]: box_gt, [2]: [CNode]167}
+#  19: construct.44:[CNode]169{[0]: ValueNode<DoSignaturePrimitive> S-Prim-make_slice, [1]: ValueNode<Int64Imm> 1, [2]: ValueNode<Int64Imm> 2, [3]: ValueNode<None> None}
+#  20: construct.44:[CNode]170{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MakeTuple, [1]: ValueNode<Ellipsis> Ellipsis, [2]: [CNode]169}
+#  21: construct.44:[CNode]171{[0]: ValueNode<DoSignaturePrimitive> S-Prim-getitem, [1]: box_gt, [2]: [CNode]170}
+#  22: construct.44:[CNode]172{[0]: ValueNode<DoSignaturePrimitive> S-Prim-sub, [1]: [CNode]168, [2]: [CNode]171}
+#  23: construct.44:[CNode]173{[0]: ValueNode<DoSignaturePrimitive> S-Prim-make_slice, [1]: ValueNode<Int64Imm> 2, [2]: ValueNode<Int64Imm> 3, [3]: ValueNode<None> None}
+#  24: construct.44:[CNode]174{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MakeTuple, [1]: ValueNode<Ellipsis> Ellipsis, [2]: [CNode]173}
+#  25: construct.44:[CNode]175{[0]: ValueNode<DoSignaturePrimitive> S-Prim-getitem, [1]: box_gt, [2]: [CNode]174}
+#  26: construct.44:[CNode]176{[0]: ValueNode<DoSignaturePrimitive> S-Prim-make_slice, [1]: ValueNode<Int64Imm> 0, [2]: ValueNode<Int64Imm> 1, [3]: ValueNode<None> None}
+#  27: construct.44:[CNode]177{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MakeTuple, [1]: ValueNode<Ellipsis> Ellipsis, [2]: [CNode]176}
+#  28: construct.44:[CNode]178{[0]: ValueNode<DoSignaturePrimitive> S-Prim-getitem, [1]: box_gt, [2]: [CNode]177}
+#  29: construct.44:[CNode]179{[0]: ValueNode<DoSignaturePrimitive> S-Prim-sub, [1]: [CNode]175, [2]: [CNode]178}
+#  30: construct.44:box_gt_area{[0]: ValueNode<DoSignaturePrimitive> S-Prim-mul, [1]: [CNode]172, [2]: [CNode]179}
+#  31: construct.44:[CNode]131{[0]: ValueNode<DoSignaturePrimitive> S-Prim-make_slice, [1]: ValueNode<Int64Imm> 0, [2]: ValueNode<Int64Imm> 1, [3]: ValueNode<None> None}
+#  32: construct.44:[CNode]132{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MakeTuple, [1]: ValueNode<Ellipsis> Ellipsis, [2]: [CNode]131}
+#  33: construct.44:[CNode]133{[0]: ValueNode<DoSignaturePrimitive> S-Prim-getitem, [1]: box_p, [2]: [CNode]132}
+#  34: construct.44:[CNode]134{[0]: ValueNode<DoSignaturePrimitive> S-Prim-make_slice, [1]: ValueNode<Int64Imm> 0, [2]: ValueNode<Int64Imm> 1, [3]: ValueNode<None> None}
+#  35: construct.44:[CNode]135{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MakeTuple, [1]: ValueNode<Ellipsis> Ellipsis, [2]: [CNode]134}
+#  36: construct.44:[CNode]136{[0]: ValueNode<DoSignaturePrimitive> S-Prim-getitem, [1]: box_gt, [2]: [CNode]135}
+#  37: construct.44:y_1{[0]: ValueNode<DoSignaturePrimitive> S-Prim-Maximum, [1]: [CNode]133, [2]: [CNode]136}
+#  38: construct.44:[CNode]144{[0]: ValueNode<DoSignaturePrimitive> S-Prim-make_slice, [1]: ValueNode<Int64Imm> 1, [2]: ValueNode<Int64Imm> 2, [3]: ValueNode<None> None}
+#  39: construct.44:[CNode]145{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MakeTuple, [1]: ValueNode<Ellipsis> Ellipsis, [2]: [CNode]144}
+#  40: construct.44:[CNode]146{[0]: ValueNode<DoSignaturePrimitive> S-Prim-getitem, [1]: box_p, [2]: [CNode]145}
+#  41: construct.44:[CNode]147{[0]: ValueNode<DoSignaturePrimitive> S-Prim-make_slice, [1]: ValueNode<Int64Imm> 1, [2]: ValueNode<Int64Imm> 2, [3]: ValueNode<None> None}
+#  42: construct.44:[CNode]148{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MakeTuple, [1]: ValueNode<Ellipsis> Ellipsis, [2]: [CNode]147}
+#  43: construct.44:[CNode]149{[0]: ValueNode<DoSignaturePrimitive> S-Prim-getitem, [1]: box_gt, [2]: [CNode]148}
+#  44: construct.44:x_1{[0]: ValueNode<DoSignaturePrimitive> S-Prim-Maximum, [1]: [CNode]146, [2]: [CNode]149}
+#  45: construct.44:[CNode]125{[0]: ValueNode<DoSignaturePrimitive> S-Prim-make_slice, [1]: ValueNode<Int64Imm> 2, [2]: ValueNode<Int64Imm> 3, [3]: ValueNode<None> None}
+#  46: construct.44:[CNode]126{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MakeTuple, [1]: ValueNode<Ellipsis> Ellipsis, [2]: [CNode]125}
+#  47: construct.44:[CNode]127{[0]: ValueNode<DoSignaturePrimitive> S-Prim-getitem, [1]: box_p, [2]: [CNode]126}
+#  48: construct.44:[CNode]128{[0]: ValueNode<DoSignaturePrimitive> S-Prim-make_slice, [1]: ValueNode<Int64Imm> 2, [2]: ValueNode<Int64Imm> 3, [3]: ValueNode<None> None}
+#  49: construct.44:[CNode]129{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MakeTuple, [1]: ValueNode<Ellipsis> Ellipsis, [2]: [CNode]128}
+#  50: construct.44:[CNode]130{[0]: ValueNode<DoSignaturePrimitive> S-Prim-getitem, [1]: box_gt, [2]: [CNode]129}
+#  51: construct.44:y_2{[0]: ValueNode<DoSignaturePrimitive> S-Prim-Minimum, [1]: [CNode]127, [2]: [CNode]130}
+#  52: construct.44:[CNode]138{[0]: ValueNode<DoSignaturePrimitive> S-Prim-make_slice, [1]: ValueNode<Int64Imm> 3, [2]: ValueNode<Int64Imm> 4, [3]: ValueNode<None> None}
+#  53: construct.44:[CNode]139{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MakeTuple, [1]: ValueNode<Ellipsis> Ellipsis, [2]: [CNode]138}
+#  54: construct.44:[CNode]140{[0]: ValueNode<DoSignaturePrimitive> S-Prim-getitem, [1]: box_p, [2]: [CNode]139}
+#  55: construct.44:[CNode]141{[0]: ValueNode<DoSignaturePrimitive> S-Prim-make_slice, [1]: ValueNode<Int64Imm> 3, [2]: ValueNode<Int64Imm> 4, [3]: ValueNode<None> None}
+#  56: construct.44:[CNode]142{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MakeTuple, [1]: ValueNode<Ellipsis> Ellipsis, [2]: [CNode]141}
+#  57: construct.44:[CNode]143{[0]: ValueNode<DoSignaturePrimitive> S-Prim-getitem, [1]: box_gt, [2]: [CNode]142}
+#  58: construct.44:x_2{[0]: ValueNode<DoSignaturePrimitive> S-Prim-Minimum, [1]: [CNode]140, [2]: [CNode]143}
+#  59: construct.44:[CNode]137{[0]: ValueNode<DoSignaturePrimitive> S-Prim-sub, [1]: y_2, [2]: y_1}
+#  60: construct.44:[CNode]150{[0]: ValueNode<DoSignaturePrimitive> S-Prim-sub, [1]: x_2, [2]: x_1}
+#  61: construct.44:intersection{[0]: ValueNode<DoSignaturePrimitive> S-Prim-mul, [1]: [CNode]137, [2]: [CNode]150}
+#  62: construct.44:[CNode]180{[0]: ValueNode<DoSignaturePrimitive> S-Prim-add, [1]: box_p_area, [2]: box_gt_area}
+#  63: construct.44:union{[0]: ValueNode<DoSignaturePrimitive> S-Prim-sub, [1]: [CNode]180, [2]: intersection}
+#  64: construct.44:union{[0]: ValueNode<DoSignaturePrimitive> S-Prim-add, [1]: union, [2]: ValueNode<FP32Imm> 0.000001}
+#  65: construct.44:[CNode]151{[0]: ValueNode<DoSignaturePrimitive> S-Prim-Cast, [1]: intersection, [2]: ValueNode<Float> Float32}
+#  66: construct.44:[CNode]181{[0]: ValueNode<DoSignaturePrimitive> S-Prim-Cast, [1]: union, [2]: ValueNode<Float> Float32}
+#  67: construct.44:iou{[0]: ValueNode<DoSignaturePrimitive> S-Prim-RealDiv, [1]: [CNode]151, [2]: [CNode]181}
+#  68: construct.44:[CNode]182{[0]: ValueNode<Primitive> getattr, [1]: iou, [2]: ValueNode<StringImm> squeeze}
+#  69: construct.44:[CNode]183{[0]: ValueNode<DoSignaturePrimitive> S-Prim-negative, [1]: ValueNode<Int64Imm> 1}
+#  70: construct.44:iou{[0]: [CNode]182, [1]: [CNode]183}
+#  71: construct.44:[CNode]184{[0]: ValueNode<Primitive> Return, [1]: iou}
+
+
+# [No.4] _tensor_getitem_by_tuple.45
+# In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\getitem_impl.py(282)/def _tensor_getitem_by_tuple(data, tuple_index):/
+funcgraph fg_45(
+        %para15 : Tensor(F32)[1, 2100, 4]    # data
+        , %para16 : Tuple[Ellipsis,Slice[Int64 : Int64 : kMetaTypeNone]]    # tuple_index
+    ) {
+    %1 : ExternalType = Primitive::resolve{prim_type=1}(NameSpace::SymbolStr, compile_utils)    #(ExternalType, ExternalType) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(466)/        x_2 = self.min(box_p[..., 3:4], box_gt[..., 3:4])/#[CNode]143
+    %2 : Func = Primitive::getattr{prim_type=1}(%1, "tensor_index_by_tuple")    #(ExternalType, String) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(466)/        x_2 = self.min(box_p[..., 3:4], box_gt[..., 3:4])/#[CNode]143
+
+#------------------------> 3
+    %3 = %2(%para15, %para16)    #(Tensor(F32)[1, 2100, 4], Tuple[Ellipsis,Slice[Int64 : Int64 : kMetaTypeNone]]) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(466)/        x_2 = self.min(box_p[..., 3:4], box_gt[..., 3:4])/#[CNode]143
+    Primitive::Return{prim_type=1}(%3)    #(Undefined) #scope: Default/iou-Iou
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(466)/        x_2 = self.min(box_p[..., 3:4], box_gt[..., 3:4])/#[CNode]143
+}
+# order:
+#   1: _tensor_getitem_by_tuple.185:[CNode]186{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+#   2: _tensor_getitem_by_tuple.185:[CNode]187{[0]: [CNode]186, [1]: data, [2]: tuple_index}
+#   3: _tensor_getitem_by_tuple.45:[CNode]143{[0]: [CNode]143, [1]: data, [2]: tuple_index}
+#   4: _tensor_getitem_by_tuple.45:[CNode]143{[0]: ValueNode<Primitive> Return, [1]: [CNode]143}
+
+
+# [No.5] tensor_index_by_tuple.46
+# In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(403)/def tensor_index_by_tuple(data, tuple_index):/
+funcgraph fg_46(
+        %para17 : Tensor(F32)[1, 2100, 4]    # data
+        , %para18 : Tuple[Ellipsis,Slice[Int64 : Int64 : kMetaTypeNone]]    # tuple_index
+    ) {
+    %1 : Func = Primitive::resolve{prim_type=1}(NameSpace::CommonOPS, bool_)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(405)/    if not tuple_index:/#[CNode]188
+    %2 : Func = Primitive::resolve{prim_type=1}(NameSpace::Ast, not_)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(0)/#[CNode]189
+    %3 : Bool = %2(%para18)    #(Tuple[Ellipsis,Slice[Int64 : Int64 : kMetaTypeNone]]) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(405)/    if not tuple_index:/#[CNode]190
+    %4 : Bool = %1(%3)    #(Bool) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(405)/    if not tuple_index:/#[CNode]191
+    %5 : Func = Primitive::Switch{prim_type=1}(%4, FuncGraph::fg_192, FuncGraph::fg_47)    #(Bool, Func, Func)    # fg_192=✓tensor_index_by_tuple.192, fg_47=✗tensor_index_by_tuple.47 #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(405)/    if not tuple_index:/#[CNode]193
+
+#------------------------> 4
+    %6 = %5() #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(405)/    if not tuple_index:/#[CNode]194
+    Primitive::Return{prim_type=1}(%6)    #(Undefined) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(405)/    if not tuple_index:/#[CNode]195
+}
+# order:
+#   1: tensor_index_by_tuple.46:[CNode]190{[0]: [CNode]189, [1]: tuple_index}
+#   2: tensor_index_by_tuple.46:[CNode]191{[0]: [CNode]188, [1]: [CNode]190}
+#   3: tensor_index_by_tuple.46:[CNode]193{[0]: ValueNode<Primitive> Switch, [1]: [CNode]191, [2]: ValueNode<FuncGraph> ✓tensor_index_by_tuple.192, [3]: ValueNode<FuncGraph> ✗tensor_index_by_tuple.47}
+#   4: tensor_index_by_tuple.46:[CNode]194{[0]: [CNode]193}
+#   5: tensor_index_by_tuple.46:[CNode]195{[0]: ValueNode<Primitive> Return, [1]: [CNode]194}
+#   6: tensor_index_by_tuple.46:[CNode]196{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> SymbolStr: 'Namespace:mindspore.ops.composite.multitype_ops._compile_utils', [2]: ValueNode<Symbol> _tensor_getitem_by_tuple}
+
+
+# [No.6] ✗tensor_index_by_tuple.47
+# In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(405)/    if not tuple_index:/
+funcgraph fg_47[fg_46](
+) {
+
+#------------------------> 5
+    %1 = FuncGraph::fg_48()    # fg_48=↓tensor_index_by_tuple.48 #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(405)/    if not tuple_index:/#[CNode]197
+    Primitive::Return{prim_type=1}(%1)    #(Undefined) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(405)/    if not tuple_index:/#[CNode]198
+}
+# order:
+#   1: ✗tensor_index_by_tuple.47:[CNode]197{[0]: ValueNode<FuncGraph> ↓tensor_index_by_tuple.48}
+#   2: ✗tensor_index_by_tuple.47:[CNode]198{[0]: ValueNode<Primitive> Return, [1]: [CNode]197}
+
+
+# [No.7] ↓tensor_index_by_tuple.48
+# In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(405)/    if not tuple_index:/
+funcgraph fg_48[fg_46](
+) {
+    %1 : $(tensor_index_by_tuple.46):ExternalType = Primitive::resolve{prim_type=1}(NameSpace::SymbolStr, const_utils)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(408)/    op_name = const_utils.TENSOR_GETITEM/#[CNode]199
+    %2 : Func = Primitive::getattr{prim_type=1}(%1, "judge_data_dim")    #(ExternalType, String) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(413)/    const_utils.judge_data_dim(data.ndim, min_data_dim, max_data_dim)/#[CNode]200
+    %3 : Func = Primitive::resolve{prim_type=1}(NameSpace::CommonOPS, getitem)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(410)/    data, tuple_index = _expand_data_dims(data, tuple_index)/#[CNode]201
+    %4 : $(tensor_index_by_tuple.46):Func = Primitive::resolve{prim_type=1}(NameSpace::SymbolStr, _expand_data_dims)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(410)/    data, tuple_index = _expand_data_dims(data, tuple_index)/#[CNode]202
+    %5 : $(tensor_index_by_tuple.46):Func = Primitive::resolve{prim_type=1}(NameSpace::SymbolStr, _transform_ellipsis_to_slice)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(409)/    tuple_index = _transform_ellipsis_to_slice(data, tuple_index, op_name)/#[CNode]203
+    %6 : String = Primitive::getattr{prim_type=1}(%1, "TENSOR_GETITEM")    #(ExternalType, String) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(408)/    op_name = const_utils.TENSOR_GETITEM/#op_name
+    %7 : Tuple[Slice[kMetaTypeNone : kMetaTypeNone : kMetaTypeNone]*2,Slice[Int64 : Int64 : kMetaTypeNone]] = %5(%para17, %para18, %6)    #(Tensor(F32)[1, 2100, 4], Tuple[Ellipsis,Slice[Int64 : Int64 : kMetaTypeNone]], String) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(409)/    tuple_index = _transform_ellipsis_to_slice(data, tuple_index, op_name)/#tuple_index
+    %8 : Tuple[Tensor(F32),Tuple[Slice[kMetaTypeNone : kMetaTypeNone : kMetaTypeNone]*2,Slice[Int64 : Int64 : kMetaTypeNone]]] = %4(%para17, %7)    #(Tensor(F32)[1, 2100, 4], Tuple[Slice[kMetaTypeNone : kMetaTypeNone : kMetaTypeNone]*2,Slice[Int64 : Int64 : kMetaTypeNone]]) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(410)/    data, tuple_index = _expand_data_dims(data, tuple_index)/#[CNode]204
+    %9 : Tensor(F32)[1, 2100, 4] = %3(%8, I64(0))    #(Tuple[Tensor(F32),Tuple[Slice[kMetaTypeNone : kMetaTypeNone : kMetaTypeNone]*2,Slice[Int64 : Int64 : kMetaTypeNone]]], I64) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(410)/    data, tuple_index = _expand_data_dims(data, tuple_index)/#data
+    %10 : I64 = Primitive::getattr{prim_type=1}(%9, "ndim")    #(Tensor(F32)[1, 2100, 4], String) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(413)/    const_utils.judge_data_dim(data.ndim, min_data_dim, max_data_dim)/#[CNode]205
+    %11 : Func = Primitive::resolve{prim_type=1}(NameSpace::CommonOPS, getitem)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(412)/    min_data_dim, max_data_dim = 1, 8/#[CNode]206
+    %12 : Func = Primitive::resolve{prim_type=1}(NameSpace::CommonOPS, MakeTuple)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(412)/    min_data_dim, max_data_dim = 1, 8/#[CNode]207
+    %13 : Tuple[I64*2] = %12(I64(1), I64(8))    #(I64, I64) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(412)/    min_data_dim, max_data_dim = 1, 8/#[CNode]208
+    %14 : I64 = %11(%13, I64(0))    #(Tuple[I64*2], I64) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(412)/    min_data_dim, max_data_dim = 1, 8/#min_data_dim
+    %15 : I64 = %11(%13, I64(1))    #(Tuple[I64*2], I64) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(412)/    min_data_dim, max_data_dim = 1, 8/#max_data_dim
+    %16 : NoneType = %2(%10, %14, %15)    #(I64, I64, I64) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(413)/    const_utils.judge_data_dim(data.ndim, min_data_dim, max_data_dim)/#[CNode]209
+    %17 : NoneType = Primitive::stop_gradient{prim_type=1}(%16)    #(NoneType) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(568)/            self.expand_dims(res_center_priors[..., 2], -1), (1, 1, 4))) * mask_bbox/#[CNode]210
+    %18 : Func = Primitive::resolve{prim_type=1}(NameSpace::CommonOPS, bool_)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(417)/    if contain_type == const_utils.ALL_BASIC:/#[CNode]211
+    %19 : Func = Primitive::resolve{prim_type=1}(NameSpace::Ast, eq)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(0)/#[CNode]212
+    %20 : Func = Primitive::getattr{prim_type=1}(%1, "tuple_index_type_cnt")    #(ExternalType, String) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(416)/    contain_type = const_utils.tuple_index_type_cnt(indexes_types, op_name)/#[CNode]213
+    %21 : $(tensor_index_by_tuple.46):Func = Primitive::resolve{prim_type=1}(NameSpace::SymbolStr, hyper_map)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(415)/    indexes_types = hyper_map(F.typeof, tuple_index)/#[CNode]214
+    %22 : $(tensor_index_by_tuple.46):ExternalType = Primitive::resolve{prim_type=1}(NameSpace::SymbolStr, F)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(415)/    indexes_types = hyper_map(F.typeof, tuple_index)/#[CNode]215
+    %23 : Func = Primitive::getattr{prim_type=1}(%22, "typeof")    #(ExternalType, String) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(415)/    indexes_types = hyper_map(F.typeof, tuple_index)/#[CNode]216
+    %24 : Tuple[Slice[kMetaTypeNone : kMetaTypeNone : kMetaTypeNone]*2,Slice[Int64 : Int64 : kMetaTypeNone]] = %3(%8, I64(1))    #(Tuple[Tensor(F32),Tuple[Slice[kMetaTypeNone : kMetaTypeNone : kMetaTypeNone]*2,Slice[Int64 : Int64 : kMetaTypeNone]]], I64) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(410)/    data, tuple_index = _expand_data_dims(data, tuple_index)/#tuple_index
+    %25 : Tuple[TypeType*3] = %21(%23, %24)    #(Func, Tuple[Slice[kMetaTypeNone : kMetaTypeNone : kMetaTypeNone]*2,Slice[Int64 : Int64 : kMetaTypeNone]]) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(415)/    indexes_types = hyper_map(F.typeof, tuple_index)/#indexes_types
+    %26 : I64 = %20(%25, %6)    #(Tuple[TypeType*3], String) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(416)/    contain_type = const_utils.tuple_index_type_cnt(indexes_types, op_name)/#contain_type
+    %27 : I64 = Primitive::getattr{prim_type=1}(%1, "ALL_BASIC")    #(ExternalType, String) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(417)/    if contain_type == const_utils.ALL_BASIC:/#[CNode]217
+    %28 : Bool = %19(%26, %27)    #(I64, I64) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(417)/    if contain_type == const_utils.ALL_BASIC:/#[CNode]218
+    %29 : Bool = %18(%28)    #(Bool) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(417)/    if contain_type == const_utils.ALL_BASIC:/#[CNode]219
+    %30 : Func = Primitive::Switch{prim_type=1}(%29, FuncGraph::fg_49, FuncGraph::fg_220)    #(Bool, Func, Func)    # fg_49=✓↓tensor_index_by_tuple.49, fg_220=✗↓tensor_index_by_tuple.220 #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(417)/    if contain_type == const_utils.ALL_BASIC:/#[CNode]221
+
+#------------------------> 6
+    %31 = %30() #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(417)/    if contain_type == const_utils.ALL_BASIC:/#[CNode]222
+    %32 = Primitive::Depend{prim_type=1}[side_effect_propagate=I64(1)](%31, %17)    #(Undefined, NoneType) #scope: Default
+      # In file D:/VSCoding/Nanodet/src/nanodetII.py(568)/            self.expand_dims(res_center_priors[..., 2], -1), (1, 1, 4))) * mask_bbox/#[CNode]223
+    Primitive::Return{prim_type=1}(%32)    #(Undefined) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(417)/    if contain_type == const_utils.ALL_BASIC:/#[CNode]224
+}
+# order:
+#   1: ↓tensor_index_by_tuple.48:[CNode]225{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+#   2: ↓tensor_index_by_tuple.48:[CNode]226{[0]: [CNode]225, [1]: data, [2]: tuple_index, [3]: op_name}
+#   3: ↓tensor_index_by_tuple.48:tuple_index{[0]: [CNode]203, [1]: data, [2]: tuple_index, [3]: op_name}
+#   4: ↓tensor_index_by_tuple.48:[CNode]227{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+#   5: ↓tensor_index_by_tuple.48:[CNode]228{[0]: [CNode]227, [1]: data, [2]: tuple_index}
+#   6: ↓tensor_index_by_tuple.48:[CNode]204{[0]: [CNode]202, [1]: data, [2]: tuple_index}
+#   7: ↓tensor_index_by_tuple.48:data{[0]: [CNode]201, [1]: [CNode]204, [2]: ValueNode<Int64Imm> 0}
+#   8: ↓tensor_index_by_tuple.48:tuple_index{[0]: [CNode]201, [1]: [CNode]204, [2]: ValueNode<Int64Imm> 1}
+#   9: ↓tensor_index_by_tuple.48:[CNode]208{[0]: [CNode]207, [1]: ValueNode<Int64Imm> 1, [2]: ValueNode<Int64Imm> 8}
+#  10: ↓tensor_index_by_tuple.48:min_data_dim{[0]: [CNode]206, [1]: [CNode]208, [2]: ValueNode<Int64Imm> 0}
+#  11: ↓tensor_index_by_tuple.48:max_data_dim{[0]: [CNode]206, [1]: [CNode]208, [2]: ValueNode<Int64Imm> 1}
+#  12: ↓tensor_index_by_tuple.48:[CNode]205{[0]: ValueNode<Primitive> getattr, [1]: data, [2]: ValueNode<StringImm> ndim}
+#  13: ↓tensor_index_by_tuple.48:[CNode]229{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+#  14: ↓tensor_index_by_tuple.48:[CNode]230{[0]: [CNode]229, [1]: [CNode]205, [2]: min_data_dim, [3]: max_data_dim}
+#  15: ↓tensor_index_by_tuple.48:[CNode]209{[0]: [CNode]200, [1]: [CNode]205, [2]: min_data_dim, [3]: max_data_dim}
+#  16: ↓tensor_index_by_tuple.48:[CNode]231{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+#  17: ↓tensor_index_by_tuple.48:[CNode]232{[0]: [CNode]231, [1]: [CNode]216, [2]: tuple_index}
+#  18: ↓tensor_index_by_tuple.48:indexes_types{[0]: [CNode]214, [1]: [CNode]216, [2]: tuple_index}
+#  19: ↓tensor_index_by_tuple.48:[CNode]233{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+#  20: ↓tensor_index_by_tuple.48:[CNode]234{[0]: [CNode]233, [1]: indexes_types, [2]: op_name}
+#  21: ↓tensor_index_by_tuple.48:contain_type{[0]: [CNode]213, [1]: indexes_types, [2]: op_name}
+#  22: ↓tensor_index_by_tuple.48:[CNode]218{[0]: [CNode]212, [1]: contain_type, [2]: [CNode]217}
+#  23: ↓tensor_index_by_tuple.48:[CNode]219{[0]: [CNode]211, [1]: [CNode]218}
+#  24: ↓tensor_index_by_tuple.48:[CNode]221{[0]: ValueNode<Primitive> Switch, [1]: [CNode]219, [2]: ValueNode<FuncGraph> ✓↓tensor_index_by_tuple.49, [3]: ValueNode<FuncGraph> ✗↓tensor_index_by_tuple.220}
+#  25: ↓tensor_index_by_tuple.48:[CNode]222{[0]: [CNode]221}
+#  26: ↓tensor_index_by_tuple.48:[CNode]224{[0]: ValueNode<Primitive> Return, [1]: [CNode]222}
+#  27: ↓tensor_index_by_tuple.48:[CNode]224{[0]: ValueNode<Primitive> Return, [1]: [CNode]223}
+
+
+# [No.8] ✓↓tensor_index_by_tuple.49
+# In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(417)/    if contain_type == const_utils.ALL_BASIC:/
+funcgraph fg_49[fg_48](
+) {
+    %1 : $(tensor_index_by_tuple.46):Func = Primitive::resolve{prim_type=1}(NameSpace::SymbolStr, _tensor_getitem_by_tuple_slice)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(418)/        return _tensor_getitem_by_tuple_slice(data, tuple_index)/#[CNode]235
+    %2 : $(↓tensor_index_by_tuple.48):Func = Primitive::resolve{prim_type=1}(NameSpace::CommonOPS, getitem)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(410)/    data, tuple_index = _expand_data_dims(data, tuple_index)/#[CNode]201
+    %3 : $(tensor_index_by_tuple.46):Func = Primitive::resolve{prim_type=1}(NameSpace::SymbolStr, _expand_data_dims)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(410)/    data, tuple_index = _expand_data_dims(data, tuple_index)/#[CNode]202
+    %4 : $(tensor_index_by_tuple.46):Func = Primitive::resolve{prim_type=1}(NameSpace::SymbolStr, _transform_ellipsis_to_slice)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(409)/    tuple_index = _transform_ellipsis_to_slice(data, tuple_index, op_name)/#[CNode]203
+    %5 : $(tensor_index_by_tuple.46):ExternalType = Primitive::resolve{prim_type=1}(NameSpace::SymbolStr, const_utils)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(408)/    op_name = const_utils.TENSOR_GETITEM/#[CNode]199
+    %6 : $(↓tensor_index_by_tuple.48):String = Primitive::getattr{prim_type=1}(%5, "TENSOR_GETITEM")    #(ExternalType, String) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(408)/    op_name = const_utils.TENSOR_GETITEM/#op_name
+    %7 : $(↓tensor_index_by_tuple.48):Tuple[Slice[kMetaTypeNone : kMetaTypeNone : kMetaTypeNone]*2,Slice[Int64 : Int64 : kMetaTypeNone]] = %4(%para17, %para18, %6)    #(Tensor(F32)[1, 2100, 4], Tuple[Ellipsis,Slice[Int64 : Int64 : kMetaTypeNone]], String) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(409)/    tuple_index = _transform_ellipsis_to_slice(data, tuple_index, op_name)/#tuple_index
+    %8 : $(↓tensor_index_by_tuple.48):Tuple[Tensor(F32),Tuple[Slice[kMetaTypeNone : kMetaTypeNone : kMetaTypeNone]*2,Slice[Int64 : Int64 : kMetaTypeNone]]] = %3(%para17, %7)    #(Tensor(F32)[1, 2100, 4], Tuple[Slice[kMetaTypeNone : kMetaTypeNone : kMetaTypeNone]*2,Slice[Int64 : Int64 : kMetaTypeNone]]) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(410)/    data, tuple_index = _expand_data_dims(data, tuple_index)/#[CNode]204
+    %9 : $(↓tensor_index_by_tuple.48):Tensor(F32)[1, 2100, 4] = %2(%8, I64(0))    #(Tuple[Tensor(F32),Tuple[Slice[kMetaTypeNone : kMetaTypeNone : kMetaTypeNone]*2,Slice[Int64 : Int64 : kMetaTypeNone]]], I64) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(410)/    data, tuple_index = _expand_data_dims(data, tuple_index)/#data
+    %10 : $(↓tensor_index_by_tuple.48):Tuple[Slice[kMetaTypeNone : kMetaTypeNone : kMetaTypeNone]*2,Slice[Int64 : Int64 : kMetaTypeNone]] = %2(%8, I64(1))    #(Tuple[Tensor(F32),Tuple[Slice[kMetaTypeNone : kMetaTypeNone : kMetaTypeNone]*2,Slice[Int64 : Int64 : kMetaTypeNone]]], I64) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(410)/    data, tuple_index = _expand_data_dims(data, tuple_index)/#tuple_index
+
+#------------------------> 7
+    %11 = %1(%9, %10)    #(Tensor(F32)[1, 2100, 4], Tuple[Slice[kMetaTypeNone : kMetaTypeNone : kMetaTypeNone]*2,Slice[Int64 : Int64 : kMetaTypeNone]]) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(418)/        return _tensor_getitem_by_tuple_slice(data, tuple_index)/#[CNode]236
+    Primitive::Return{prim_type=1}(%11)    #(Undefined) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(418)/        return _tensor_getitem_by_tuple_slice(data, tuple_index)/#[CNode]237
+}
+# order:
+#   1: ✓↓tensor_index_by_tuple.49:[CNode]238{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+#   2: ✓↓tensor_index_by_tuple.49:[CNode]239{[0]: [CNode]238, [1]: data, [2]: tuple_index}
+#   3: ✓↓tensor_index_by_tuple.49:[CNode]236{[0]: [CNode]235, [1]: data, [2]: tuple_index}
+#   4: ✓↓tensor_index_by_tuple.49:[CNode]237{[0]: ValueNode<Primitive> Return, [1]: [CNode]236}
+
+
+# [No.9] _tensor_getitem_by_tuple_slice.50
+# In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(486)/def _tensor_getitem_by_tuple_slice(data, tuple_index):/
+funcgraph fg_50(
+        %para19 : Tensor(F32)[1, 2100, 4]    # Φdata
+        , %para20 : Tuple[Slice[kMetaTypeNone : kMetaTypeNone : kMetaTypeNone]*2,Slice[Int64 : Int64 : kMetaTypeNone]]    # Φtuple_index
+    ) {
+    %1 : Func = Primitive::resolve{prim_type=1}(NameSpace::Ast, contains)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(0)/#[CNode]240
+    %2 : Func = Primitive::resolve{prim_type=1}(NameSpace::Ast, neg)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(0)/#[CNode]241
+    %3 : I64 = %2(I64(1))    #(I64) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(489)/    is_dynamic = -1 in data_shape/#[CNode]242
+    %4 : ExternalType = Primitive::resolve{prim_type=1}(NameSpace::SymbolStr, F)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(503)/    data_shape = F.dyn_shape(data)/#ΦF
+    %5 : Func = Primitive::getattr{prim_type=1}(%4, "shape")    #(ExternalType, String) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(488)/    data_shape = F.shape(data)/#[CNode]243
+    %6 : Tuple[I64*3] = %5(%para19)    #(Tensor(F32)[1, 2100, 4]) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(498)/            data_shape, tuple_index)/#Φdata_shape
+    %7 : Bool = %1(%3, %6)    #(I64, Tuple[I64*3]) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(489)/    is_dynamic = -1 in data_shape/#is_dynamic
+
+#------------------------> 8
+    %8 = FuncGraph::fg_51(I64(0), %7)    #(I64, Bool)    # fg_51=⤾_tensor_getitem_by_tuple_slice.51 #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(490)/    for item in tuple_index:/#[CNode]244
+    Primitive::Return{prim_type=1}(%8)    #(Undefined) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(490)/    for item in tuple_index:/#[CNode]245
+}
+# order:
+#   1: _tensor_getitem_by_tuple_slice.50:[CNode]246{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+#   2: _tensor_getitem_by_tuple_slice.50:[CNode]247{[0]: [CNode]246, [1]: Φdata}
+#   3: _tensor_getitem_by_tuple_slice.50:Φdata_shape{[0]: [CNode]243, [1]: Φdata}
+#   4: _tensor_getitem_by_tuple_slice.50:[CNode]242{[0]: [CNode]241, [1]: ValueNode<Int64Imm> 1}
+#   5: _tensor_getitem_by_tuple_slice.50:is_dynamic{[0]: [CNode]240, [1]: [CNode]242, [2]: Φdata_shape}
+#   6: _tensor_getitem_by_tuple_slice.50:[CNode]248{[0]: [CNode]249, [1]: Φtuple_index}
+#   7: _tensor_getitem_by_tuple_slice.50:[CNode]244{[0]: ValueNode<FuncGraph> ⤾_tensor_getitem_by_tuple_slice.51, [1]: ValueNode<Int64Imm> 0, [2]: is_dynamic}
+#   8: _tensor_getitem_by_tuple_slice.50:[CNode]245{[0]: ValueNode<Primitive> Return, [1]: [CNode]244}
+#   9: _tensor_getitem_by_tuple_slice.50:Φlen{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> SymbolStr: 'Namespace:mindspore.ops.composite.multitype_ops._compile_utils', [2]: ValueNode<Symbol> len}
+#  10: _tensor_getitem_by_tuple_slice.50:Φrange{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> SymbolStr: 'Namespace:mindspore.ops.composite.multitype_ops._compile_utils', [2]: ValueNode<Symbol> range}
+#  11: _tensor_getitem_by_tuple_slice.50:Φget_slice_stride{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> SymbolStr: 'Namespace:mindspore.ops.composite.multitype_ops._compile_utils', [2]: ValueNode<Symbol> get_slice_stride}
+#  12: _tensor_getitem_by_tuple_slice.50:Φint{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> SymbolStr: 'Namespace:mindspore.ops.composite.multitype_ops._compile_utils', [2]: ValueNode<Symbol> int}
+#  13: _tensor_getitem_by_tuple_slice.50:Φtype{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> SymbolStr: 'Namespace:mindspore.ops.composite.multitype_ops._compile_utils', [2]: ValueNode<Symbol> type}
+#  14: _tensor_getitem_by_tuple_slice.50:Φstack{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> SymbolStr: 'Namespace:mindspore.ops.composite.multitype_ops._compile_utils', [2]: ValueNode<Symbol> stack}
+
+
+# [No.10] ⤾_tensor_getitem_by_tuple_slice.51
+# In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(490)/    for item in tuple_index:/
+funcgraph fg_51[fg_50](
+        %para21 : I64    # @[CNode]52
+        , %para22 : Bool    # Φis_dynamic
+    ) {
+    %1 : $(_tensor_getitem_by_tuple_slice.50):Func = Primitive::resolve{prim_type=1}(NameSpace::SymbolStr, len)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(490)/    for item in tuple_index:/#[CNode]249
+    %2 : $(_tensor_getitem_by_tuple_slice.50):I64 = %1(%para20)    #(Tuple[Slice[kMetaTypeNone : kMetaTypeNone : kMetaTypeNone]*2,Slice[Int64 : Int64 : kMetaTypeNone]]) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(490)/    for item in tuple_index:/#[CNode]248
+    %3 : Bool = MultitypeFuncGraph::less{(Tensor, Number), (Number, Tensor), (Number, Number), (Tensor, Tensor)}(%para21, %2)    #(I64, I64) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(490)/    for item in tuple_index:/#[CNode]250
+    %4 : Func = Primitive::Switch{prim_type=1}(%3, FuncGraph::fg_53, FuncGraph::fg_56)    #(Bool, Func, Func)    # fg_53=⥁_tensor_getitem_by_tuple_slice.53, fg_56=↓_tensor_getitem_by_tuple_slice.56 #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(490)/    for item in tuple_index:/#[CNode]251
+
+#------------------------> 21
+    %5 = %4() #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(490)/    for item in tuple_index:/#[CNode]252
+    Primitive::Return{prim_type=1}(%5)    #(Undefined) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(490)/    for item in tuple_index:/#[CNode]253
+}
+# order:
+#   1: ⤾_tensor_getitem_by_tuple_slice.51:[CNode]250{[0]: ValueNode<MultitypeFuncGraph> less.10, [1]: @[CNode]52, [2]: [CNode]248}
+#   2: ⤾_tensor_getitem_by_tuple_slice.51:[CNode]251{[0]: ValueNode<Primitive> Switch, [1]: [CNode]250, [2]: ValueNode<FuncGraph> ⥁_tensor_getitem_by_tuple_slice.53, [3]: ValueNode<FuncGraph> ↓_tensor_getitem_by_tuple_slice.56}
+#   3: ⤾_tensor_getitem_by_tuple_slice.51:[CNode]252{[0]: [CNode]251}
+#   4: ⤾_tensor_getitem_by_tuple_slice.51:[CNode]253{[0]: ValueNode<Primitive> Return, [1]: [CNode]252}
+
+
+# [No.11] ⥁_tensor_getitem_by_tuple_slice.53
+# In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(490)/    for item in tuple_index:/
+funcgraph fg_53[fg_51](
+) {
+    %1 : Func = Primitive::resolve{prim_type=1}(NameSpace::CommonOPS, bool_)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(491)/        if isinstance(item, slice):/#[CNode]254
+    %2 : $(_tensor_getitem_by_tuple_slice.50):Func = Primitive::resolve{prim_type=1}(NameSpace::SymbolStr, isinstance)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(508)/    for item in range(data_dim):/#Φisinstance
+    %3 : $(_tensor_getitem_by_tuple_slice.50):Func = Primitive::resolve{prim_type=1}(NameSpace::CommonOPS, getitem)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(490)/    for item in tuple_index:/#[CNode]255
+    %4 : Slice[kMetaTypeNone : kMetaTypeNone : kMetaTypeNone] = %3(%para20, %para21)    #(Tuple[Slice[kMetaTypeNone : kMetaTypeNone : kMetaTypeNone]*2,Slice[Int64 : Int64 : kMetaTypeNone]], I64) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(490)/    for item in tuple_index:/#item
+    %5 : $(_tensor_getitem_by_tuple_slice.50):TypeType = Primitive::resolve{prim_type=1}(NameSpace::SymbolStr, slice)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(508)/    for item in range(data_dim):/#Φslice
+    %6 : Bool = %2(%4, %5)    #(Slice[kMetaTypeNone : kMetaTypeNone : kMetaTypeNone], TypeType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(491)/        if isinstance(item, slice):/#[CNode]256
+    %7 : Bool = %1(%6)    #(Bool) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(491)/        if isinstance(item, slice):/#[CNode]257
+    %8 : Func = Primitive::Switch{prim_type=1}(%7, FuncGraph::fg_54, FuncGraph::fg_258)    #(Bool, Func, Func)    # fg_54=✓⥁_tensor_getitem_by_tuple_slice.54, fg_258=✗⥁_tensor_getitem_by_tuple_slice.258 #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(491)/        if isinstance(item, slice):/#[CNode]259
+
+#------------------------> 18
+    %9 = %8() #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(491)/        if isinstance(item, slice):/#[CNode]260
+    Primitive::Return{prim_type=1}(%9)    #(Undefined) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(491)/        if isinstance(item, slice):/#[CNode]261
+}
+# order:
+#   1: ⥁_tensor_getitem_by_tuple_slice.53:item{[0]: [CNode]255, [1]: Φtuple_index, [2]: @[CNode]52}
+#   2: ⥁_tensor_getitem_by_tuple_slice.53:[CNode]52{[0]: ValueNode<MultitypeFuncGraph> add.7, [1]: @[CNode]52, [2]: ValueNode<Int64Imm> 1}
+#   3: ⥁_tensor_getitem_by_tuple_slice.53:[CNode]262{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+#   4: ⥁_tensor_getitem_by_tuple_slice.53:[CNode]263{[0]: [CNode]262, [1]: item, [2]: Φslice}
+#   5: ⥁_tensor_getitem_by_tuple_slice.53:[CNode]256{[0]: Φisinstance, [1]: item, [2]: Φslice}
+#   6: ⥁_tensor_getitem_by_tuple_slice.53:[CNode]257{[0]: [CNode]254, [1]: [CNode]256}
+#   7: ⥁_tensor_getitem_by_tuple_slice.53:[CNode]259{[0]: ValueNode<Primitive> Switch, [1]: [CNode]257, [2]: ValueNode<FuncGraph> ✓⥁_tensor_getitem_by_tuple_slice.54, [3]: ValueNode<FuncGraph> ✗⥁_tensor_getitem_by_tuple_slice.258}
+#   8: ⥁_tensor_getitem_by_tuple_slice.53:[CNode]260{[0]: [CNode]259}
+#   9: ⥁_tensor_getitem_by_tuple_slice.53:[CNode]261{[0]: ValueNode<Primitive> Return, [1]: [CNode]260}
+
+
+# [No.12] ✓⥁_tensor_getitem_by_tuple_slice.54
+# In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(491)/        if isinstance(item, slice):/
+funcgraph fg_54[fg_53](
+) {
+    %1 : Func = Primitive::resolve{prim_type=1}(NameSpace::CommonOPS, bool_)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(492)/            is_dynamic = is_dynamic or isinstance(slice_get_item(item, "start"), Tensor) \/#[CNode]264
+    %2 : Bool = %1(%para22)    #(Bool) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(492)/            is_dynamic = is_dynamic or isinstance(slice_get_item(item, "start"), Tensor) \/#[CNode]265
+    %3 : Func = Primitive::Switch{prim_type=1}(%2, FuncGraph::fg_266, FuncGraph::fg_267)    #(Bool, Func, Func)    # fg_266=↰✓⥁_tensor_getitem_by_tuple_slice.266, fg_267=↱✓⥁_tensor_getitem_by_tuple_slice.267 #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(492)/            is_dynamic = is_dynamic or isinstance(slice_get_item(item, "start"), Tensor) \/#[CNode]268
+    %4 : Bool = %3() #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(492)/            is_dynamic = is_dynamic or isinstance(slice_get_item(item, "start"), Tensor) \/#is_dynamic
+
+#------------------------> 19
+    %5 = FuncGraph::fg_55(%4)    #(Bool)    # fg_55=↓⥁_tensor_getitem_by_tuple_slice.55 #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(491)/        if isinstance(item, slice):/#[CNode]269
+    Primitive::Return{prim_type=1}(%5)    #(Undefined) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(491)/        if isinstance(item, slice):/#[CNode]270
+}
+# order:
+#   1: ✓⥁_tensor_getitem_by_tuple_slice.54:[CNode]265{[0]: [CNode]264, [1]: Φis_dynamic}
+#   2: ✓⥁_tensor_getitem_by_tuple_slice.54:[CNode]268{[0]: ValueNode<Primitive> Switch, [1]: [CNode]265, [2]: ValueNode<FuncGraph> ↰✓⥁_tensor_getitem_by_tuple_slice.266, [3]: ValueNode<FuncGraph> ↱✓⥁_tensor_getitem_by_tuple_slice.267}
+#   3: ✓⥁_tensor_getitem_by_tuple_slice.54:is_dynamic{[0]: [CNode]268}
+#   4: ✓⥁_tensor_getitem_by_tuple_slice.54:[CNode]269{[0]: ValueNode<FuncGraph> ↓⥁_tensor_getitem_by_tuple_slice.55, [1]: is_dynamic}
+#   5: ✓⥁_tensor_getitem_by_tuple_slice.54:[CNode]270{[0]: ValueNode<Primitive> Return, [1]: [CNode]269}
+
+
+# [No.13] ↓⥁_tensor_getitem_by_tuple_slice.55
+# In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(491)/        if isinstance(item, slice):/
+funcgraph fg_55[fg_53](
+        %para23 : Bool    # Φis_dynamic
+    ) {
+    %1 : $(⥁_tensor_getitem_by_tuple_slice.53):I64 = MultitypeFuncGraph::add{(Tuple, Tuple), (RowTensor, Tensor), (Tensor, Tensor), (List, List), (Tensor, List), (List, Tensor), (String, String), (Tuple, Tensor), (NoneType, NoneType), (Number, Number), (Number, Tensor), (Tensor, Number), (Tensor, Tuple)}(%para21, I64(1))    #(I64, I64) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(490)/    for item in tuple_index:/#[CNode]52
+
+#------------------------> 20
+    %2 = FuncGraph::fg_51(%1, %para23)    #(I64, Bool)    # fg_51=⤾_tensor_getitem_by_tuple_slice.51 #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(490)/    for item in tuple_index:/#[CNode]271
+    Primitive::Return{prim_type=1}(%2)    #(Undefined) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(490)/    for item in tuple_index:/#[CNode]272
+}
+# order:
+#   1: ↓⥁_tensor_getitem_by_tuple_slice.55:[CNode]271{[0]: ValueNode<FuncGraph> ⤾_tensor_getitem_by_tuple_slice.51, [1]: [CNode]52, [2]: Φis_dynamic}
+#   2: ↓⥁_tensor_getitem_by_tuple_slice.55:[CNode]272{[0]: ValueNode<Primitive> Return, [1]: [CNode]271}
+
+
+# [No.14] ↓_tensor_getitem_by_tuple_slice.56
+# In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(490)/    for item in tuple_index:/
+funcgraph fg_56[fg_51](
+) {
+    %1 : Func = Primitive::resolve{prim_type=1}(NameSpace::CommonOPS, bool_)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(496)/    if not is_dynamic:/#[CNode]273
+    %2 : Func = Primitive::resolve{prim_type=1}(NameSpace::Ast, not_)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(0)/#[CNode]274
+    %3 : Bool = %2(%para22)    #(Bool) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(496)/    if not is_dynamic:/#[CNode]275
+    %4 : Bool = %1(%3)    #(Bool) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(496)/    if not is_dynamic:/#[CNode]276
+    %5 : Func = Primitive::Switch{prim_type=1}(%4, FuncGraph::fg_57, FuncGraph::fg_277)    #(Bool, Func, Func)    # fg_57=✓↓_tensor_getitem_by_tuple_slice.57, fg_277=✗↓_tensor_getitem_by_tuple_slice.277 #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(496)/    if not is_dynamic:/#[CNode]278
+
+#------------------------> 22
+    %6 = %5() #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(496)/    if not is_dynamic:/#[CNode]279
+    Primitive::Return{prim_type=1}(%6)    #(Undefined) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(496)/    if not is_dynamic:/#[CNode]280
+}
+# order:
+#   1: ↓_tensor_getitem_by_tuple_slice.56:[CNode]275{[0]: [CNode]274, [1]: Φis_dynamic}
+#   2: ↓_tensor_getitem_by_tuple_slice.56:[CNode]276{[0]: [CNode]273, [1]: [CNode]275}
+#   3: ↓_tensor_getitem_by_tuple_slice.56:[CNode]278{[0]: ValueNode<Primitive> Switch, [1]: [CNode]276, [2]: ValueNode<FuncGraph> ✓↓_tensor_getitem_by_tuple_slice.57, [3]: ValueNode<FuncGraph> ✗↓_tensor_getitem_by_tuple_slice.277}
+#   4: ↓_tensor_getitem_by_tuple_slice.56:[CNode]279{[0]: [CNode]278}
+#   5: ↓_tensor_getitem_by_tuple_slice.56:[CNode]280{[0]: ValueNode<Primitive> Return, [1]: [CNode]279}
+
+
+# [No.15] ✓↓_tensor_getitem_by_tuple_slice.57
+# In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(496)/    if not is_dynamic:/
+funcgraph fg_57[fg_50](
+) {
+    %1 : $(_tensor_getitem_by_tuple_slice.50):ExternalType = Primitive::resolve{prim_type=1}(NameSpace::SymbolStr, P)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(546)/    return P.StridedSlice(0, 0, 0, 0, shrink_axis)(data, begin_tensor, end_tensor, step_tensor)/#ΦP
+    %2 : Func = Primitive::getattr{prim_type=1}(%1, "StridedSlice")    #(ExternalType, String) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(500)/        strided_slice_op = P.StridedSlice(begin_mask, end_mask, 0, 0, shrink_axis_mask)/#[CNode]281
+    %3 : Func = Primitive::resolve{prim_type=1}(NameSpace::CommonOPS, getitem)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(499)/        begin_mask, end_mask = cal_tuple_slice_mask(data_shape, tuple_index)/#[CNode]282
+    %4 : $(_tensor_getitem_by_tuple_slice.50):Func = Primitive::resolve{prim_type=1}(NameSpace::SymbolStr, cal_tuple_slice_mask)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(499)/        begin_mask, end_mask = cal_tuple_slice_mask(data_shape, tuple_index)/#Φcal_tuple_slice_mask
+    %5 : $(_tensor_getitem_by_tuple_slice.50):ExternalType = Primitive::resolve{prim_type=1}(NameSpace::SymbolStr, F)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(503)/    data_shape = F.dyn_shape(data)/#ΦF
+    %6 : $(_tensor_getitem_by_tuple_slice.50):Func = Primitive::getattr{prim_type=1}(%5, "shape")    #(ExternalType, String) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(488)/    data_shape = F.shape(data)/#[CNode]243
+    %7 : $(_tensor_getitem_by_tuple_slice.50):Tuple[I64*3] = %6(%para19)    #(Tensor(F32)[1, 2100, 4]) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(498)/            data_shape, tuple_index)/#Φdata_shape
+
+#------------------------> 23
+    %8 = %4(%7, %para20)    #(Tuple[I64*3], Tuple[Slice[kMetaTypeNone : kMetaTypeNone : kMetaTypeNone]*2,Slice[Int64 : Int64 : kMetaTypeNone]]) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(499)/        begin_mask, end_mask = cal_tuple_slice_mask(data_shape, tuple_index)/#[CNode]283
+    %9 = %3(%8, I64(0))    #(Undefined, I64) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(499)/        begin_mask, end_mask = cal_tuple_slice_mask(data_shape, tuple_index)/#begin_mask
+    %10 = %3(%8, I64(1))    #(Undefined, I64) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(499)/        begin_mask, end_mask = cal_tuple_slice_mask(data_shape, tuple_index)/#end_mask
+    %11 = Primitive::resolve{prim_type=1}(NameSpace::CommonOPS, getitem)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(497)/        begin_strides, end_strides, step_strides, shrink_axis_mask = const_utils.get_stride_info_from_tuple(/#[CNode]284
+    %12 = $(_tensor_getitem_by_tuple_slice.50):Primitive::resolve{prim_type=1}(NameSpace::SymbolStr, const_utils)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(540)/        begin_strides.append(const_utils.scalar_to_tensor(0))/#Φconst_utils
+    %13 = Primitive::getattr{prim_type=1}(%12, "get_stride_info_from_tuple")    #(Undefined, String) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(497)/        begin_strides, end_strides, step_strides, shrink_axis_mask = const_utils.get_stride_info_from_tuple(/#[CNode]285
+    %14 = %13(%7, %para20)    #(Tuple[I64*3], Tuple[Slice[kMetaTypeNone : kMetaTypeNone : kMetaTypeNone]*2,Slice[Int64 : Int64 : kMetaTypeNone]]) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(497)/        begin_strides, end_strides, step_strides, shrink_axis_mask = const_utils.get_stride_info_from_tuple(/#[CNode]286
+    %15 = %11(%14, I64(3))    #(Undefined, I64) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(497)/        begin_strides, end_strides, step_strides, shrink_axis_mask = const_utils.get_stride_info_from_tuple(/#shrink_axis_mask
+    %16 = %2(%9, %10, I64(0), I64(0), %15)    #(Undefined, Undefined, I64, I64, Undefined) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(500)/        strided_slice_op = P.StridedSlice(begin_mask, end_mask, 0, 0, shrink_axis_mask)/#strided_slice_op
+    %17 = %11(%14, I64(0))    #(Undefined, I64) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(497)/        begin_strides, end_strides, step_strides, shrink_axis_mask = const_utils.get_stride_info_from_tuple(/#begin_strides
+    %18 = %11(%14, I64(1))    #(Undefined, I64) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(497)/        begin_strides, end_strides, step_strides, shrink_axis_mask = const_utils.get_stride_info_from_tuple(/#end_strides
+    %19 = %11(%14, I64(2))    #(Undefined, I64) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(497)/        begin_strides, end_strides, step_strides, shrink_axis_mask = const_utils.get_stride_info_from_tuple(/#step_strides
+    %20 = %16(%para19, %17, %18, %19)    #(Tensor(F32)[1, 2100, 4], Undefined, Undefined, Undefined) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(501)/        return strided_slice_op(data, begin_strides, end_strides, step_strides)/#[CNode]287
+    Primitive::Return{prim_type=1}(%20)    #(Undefined) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(501)/        return strided_slice_op(data, begin_strides, end_strides, step_strides)/#[CNode]288
+}
+# order:
+#   1: ✓↓_tensor_getitem_by_tuple_slice.57:[CNode]289{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+#   2: ✓↓_tensor_getitem_by_tuple_slice.57:[CNode]290{[0]: [CNode]289, [1]: Φdata_shape, [2]: Φtuple_index}
+#   3: ✓↓_tensor_getitem_by_tuple_slice.57:[CNode]286{[0]: [CNode]285, [1]: Φdata_shape, [2]: Φtuple_index}
+#   4: ✓↓_tensor_getitem_by_tuple_slice.57:begin_strides{[0]: [CNode]284, [1]: [CNode]286, [2]: ValueNode<Int64Imm> 0}
+#   5: ✓↓_tensor_getitem_by_tuple_slice.57:end_strides{[0]: [CNode]284, [1]: [CNode]286, [2]: ValueNode<Int64Imm> 1}
+#   6: ✓↓_tensor_getitem_by_tuple_slice.57:step_strides{[0]: [CNode]284, [1]: [CNode]286, [2]: ValueNode<Int64Imm> 2}
+#   7: ✓↓_tensor_getitem_by_tuple_slice.57:shrink_axis_mask{[0]: [CNode]284, [1]: [CNode]286, [2]: ValueNode<Int64Imm> 3}
+#   8: ✓↓_tensor_getitem_by_tuple_slice.57:[CNode]291{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+#   9: ✓↓_tensor_getitem_by_tuple_slice.57:[CNode]292{[0]: [CNode]291, [1]: Φdata_shape, [2]: Φtuple_index}
+#  10: ✓↓_tensor_getitem_by_tuple_slice.57:[CNode]283{[0]: Φcal_tuple_slice_mask, [1]: Φdata_shape, [2]: Φtuple_index}
+#  11: ✓↓_tensor_getitem_by_tuple_slice.57:begin_mask{[0]: [CNode]282, [1]: [CNode]283, [2]: ValueNode<Int64Imm> 0}
+#  12: ✓↓_tensor_getitem_by_tuple_slice.57:end_mask{[0]: [CNode]282, [1]: [CNode]283, [2]: ValueNode<Int64Imm> 1}
+#  13: ✓↓_tensor_getitem_by_tuple_slice.57:[CNode]293{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+#  14: ✓↓_tensor_getitem_by_tuple_slice.57:[CNode]294{[0]: [CNode]293, [1]: begin_mask, [2]: end_mask, [3]: ValueNode<Int64Imm> 0, [4]: ValueNode<Int64Imm> 0, [5]: shrink_axis_mask}
+#  15: ✓↓_tensor_getitem_by_tuple_slice.57:strided_slice_op{[0]: [CNode]281, [1]: begin_mask, [2]: end_mask, [3]: ValueNode<Int64Imm> 0, [4]: ValueNode<Int64Imm> 0, [5]: shrink_axis_mask}
+#  16: ✓↓_tensor_getitem_by_tuple_slice.57:[CNode]295{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+#  17: ✓↓_tensor_getitem_by_tuple_slice.57:[CNode]296{[0]: [CNode]295, [1]: Φdata, [2]: begin_strides, [3]: end_strides, [4]: step_strides}
+#  18: ✓↓_tensor_getitem_by_tuple_slice.57:[CNode]287{[0]: strided_slice_op, [1]: Φdata, [2]: begin_strides, [3]: end_strides, [4]: step_strides}
+#  19: ✓↓_tensor_getitem_by_tuple_slice.57:[CNode]288{[0]: ValueNode<Primitive> Return, [1]: [CNode]287}
+
+
+# [No.16] cal_tuple_slice_mask.58
+# In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(472)/def cal_tuple_slice_mask(data_shape, tuple_index):/
+funcgraph fg_58(
+        %para24 : Tuple[I64*3]    # Φdata_shape
+        , %para25 : Tuple[Slice[kMetaTypeNone : kMetaTypeNone : kMetaTypeNone]*2,Slice[Int64 : Int64 : kMetaTypeNone]]    # Φtuple_index
+    ) {
+
+#------------------------> 24
+    %1 = FuncGraph::fg_59(I64(0), I64(0), I64(0))    #(I64, I64, I64)    # fg_59=⤾cal_tuple_slice_mask.59 #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(476)/    for i, slice_index in enumerate(tuple_index):/#[CNode]297
+    Primitive::Return{prim_type=1}(%1)    #(Undefined) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(476)/    for i, slice_index in enumerate(tuple_index):/#[CNode]298
+}
+# order:
+#   1: cal_tuple_slice_mask.58:[CNode]299{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+#   2: cal_tuple_slice_mask.58:[CNode]300{[0]: [CNode]299, [1]: Φtuple_index}
+#   3: cal_tuple_slice_mask.58:[CNode]301{[0]: [CNode]302, [1]: Φtuple_index}
+#   4: cal_tuple_slice_mask.58:[CNode]303{[0]: [CNode]304, [1]: [CNode]301}
+#   5: cal_tuple_slice_mask.58:[CNode]297{[0]: ValueNode<FuncGraph> ⤾cal_tuple_slice_mask.59, [1]: ValueNode<Int64Imm> 0, [2]: ValueNode<Int64Imm> 0, [3]: ValueNode<Int64Imm> 0}
+#   6: cal_tuple_slice_mask.58:[CNode]298{[0]: ValueNode<Primitive> Return, [1]: [CNode]297}
+
+
+# [No.17] ⤾cal_tuple_slice_mask.59
+# In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(476)/    for i, slice_index in enumerate(tuple_index):/
+funcgraph fg_59[fg_58](
+        %para26 : I64    # @[CNode]60
+        , %para27 : I64    # Φbegin_mask
+        , %para28 : I64    # Φend_mask
+    ) {
+    %1 : $(cal_tuple_slice_mask.58):Func = Primitive::resolve{prim_type=1}(NameSpace::SymbolStr, len)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(476)/    for i, slice_index in enumerate(tuple_index):/#[CNode]304
+    %2 : $(cal_tuple_slice_mask.58):Func = Primitive::resolve{prim_type=1}(NameSpace::SymbolStr, enumerate)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(476)/    for i, slice_index in enumerate(tuple_index):/#[CNode]302
+    %3 : $(cal_tuple_slice_mask.58):Tuple[Tuple[I64,Slice[kMetaTypeNone : kMetaTypeNone : kMetaTypeNone]]*2,Tuple[I64,Slice[Int64 : Int64 : kMetaTypeNone]]] = %2(%para25)    #(Tuple[Slice[kMetaTypeNone : kMetaTypeNone : kMetaTypeNone]*2,Slice[Int64 : Int64 : kMetaTypeNone]]) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(476)/    for i, slice_index in enumerate(tuple_index):/#[CNode]301
+    %4 : $(cal_tuple_slice_mask.58):I64 = %1(%3)    #(Tuple[Tuple[I64,Slice[kMetaTypeNone : kMetaTypeNone : kMetaTypeNone]]*2,Tuple[I64,Slice[Int64 : Int64 : kMetaTypeNone]]]) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(476)/    for i, slice_index in enumerate(tuple_index):/#[CNode]303
+    %5 : Bool = MultitypeFuncGraph::less{(Tensor, Number), (Number, Tensor), (Number, Number), (Tensor, Tensor)}(%para26, %4)    #(I64, I64) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(476)/    for i, slice_index in enumerate(tuple_index):/#[CNode]305
+    %6 : Func = Primitive::Switch{prim_type=1}(%5, FuncGraph::fg_61, FuncGraph::fg_306)    #(Bool, Func, Func)    # fg_61=⥁cal_tuple_slice_mask.61, fg_306=↓cal_tuple_slice_mask.306 #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(476)/    for i, slice_index in enumerate(tuple_index):/#[CNode]307
+
+#------------------------> 25
+    %7 = %6() #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(476)/    for i, slice_index in enumerate(tuple_index):/#[CNode]308
+    Primitive::Return{prim_type=1}(%7)    #(Undefined) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(476)/    for i, slice_index in enumerate(tuple_index):/#[CNode]309
+}
+# order:
+#   1: ⤾cal_tuple_slice_mask.59:[CNode]305{[0]: ValueNode<MultitypeFuncGraph> less.10, [1]: @[CNode]60, [2]: [CNode]303}
+#   2: ⤾cal_tuple_slice_mask.59:[CNode]307{[0]: ValueNode<Primitive> Switch, [1]: [CNode]305, [2]: ValueNode<FuncGraph> ⥁cal_tuple_slice_mask.61, [3]: ValueNode<FuncGraph> ↓cal_tuple_slice_mask.306}
+#   3: ⤾cal_tuple_slice_mask.59:[CNode]308{[0]: [CNode]307}
+#   4: ⤾cal_tuple_slice_mask.59:[CNode]309{[0]: ValueNode<Primitive> Return, [1]: [CNode]308}
+
+
+# [No.18] ⥁cal_tuple_slice_mask.61
+# In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(476)/    for i, slice_index in enumerate(tuple_index):/
+funcgraph fg_61[fg_59](
+) {
+    %1 = Primitive::resolve{prim_type=1}(NameSpace::CommonOPS, bool_)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(477)/        if isinstance(slice_index, slice):/#[CNode]312
+    %2 : $(cal_tuple_slice_mask.58):Func = Primitive::resolve{prim_type=1}(NameSpace::SymbolStr, isinstance)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(476)/    for i, slice_index in enumerate(tuple_index):/#Φisinstance
+    %3 = Primitive::resolve{prim_type=1}(NameSpace::CommonOPS, getitem)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(476)/    for i, slice_index in enumerate(tuple_index):/#[CNode]313
+    %4 : $(cal_tuple_slice_mask.58):Func = Primitive::resolve{prim_type=1}(NameSpace::CommonOPS, getitem)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(476)/    for i, slice_index in enumerate(tuple_index):/#[CNode]314
+    %5 : $(cal_tuple_slice_mask.58):Func = Primitive::resolve{prim_type=1}(NameSpace::SymbolStr, enumerate)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(476)/    for i, slice_index in enumerate(tuple_index):/#[CNode]302
+    %6 : $(cal_tuple_slice_mask.58):Tuple[Tuple[I64,Slice[kMetaTypeNone : kMetaTypeNone : kMetaTypeNone]]*2,Tuple[I64,Slice[Int64 : Int64 : kMetaTypeNone]]] = %5(%para25)    #(Tuple[Slice[kMetaTypeNone : kMetaTypeNone : kMetaTypeNone]*2,Slice[Int64 : Int64 : kMetaTypeNone]]) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(476)/    for i, slice_index in enumerate(tuple_index):/#[CNode]301
+    %7 = %4(%6, %para26)    #(Tuple[Tuple[I64,Slice[kMetaTypeNone : kMetaTypeNone : kMetaTypeNone]]*2,Tuple[I64,Slice[Int64 : Int64 : kMetaTypeNone]]], Undefined) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(476)/    for i, slice_index in enumerate(tuple_index):/#[CNode]315
+    %8 = %3(%7, I64(1))    #(Undefined, I64) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(476)/    for i, slice_index in enumerate(tuple_index):/#slice_index
+
+#------------------------> 26
+    %9 = $(cal_tuple_slice_mask.58):Primitive::resolve{prim_type=1}(NameSpace::SymbolStr, slice)    #(ExternalType, ExternalType) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(476)/    for i, slice_index in enumerate(tuple_index):/#Φslice
+    %10 = %2(%8, %9)    #(Undefined, Undefined) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(477)/        if isinstance(slice_index, slice):/#[CNode]316
+    %11 = %1(%10)    #(Undefined) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(477)/        if isinstance(slice_index, slice):/#[CNode]317
+    %12 = Primitive::Switch{prim_type=1}(%11, FuncGraph::fg_318, FuncGraph::fg_319)    #(Undefined, Undefined, Undefined)    # fg_318=✓⥁cal_tuple_slice_mask.318, fg_319=✗⥁cal_tuple_slice_mask.319 #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(477)/        if isinstance(slice_index, slice):/#[CNode]320
+    %13 = %12() #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(477)/        if isinstance(slice_index, slice):/#[CNode]321
+    Primitive::Return{prim_type=1}(%13)    #(Undefined) #scope: Default
+      # In file D:\Anaconda3\envs\mindspore\lib\site-packages\mindspore\ops\composite\multitype_ops\_compile_utils.py(477)/        if isinstance(slice_index, slice):/#[CNode]322
+}
+# order:
+#   1: ⥁cal_tuple_slice_mask.61:[CNode]315{[0]: [CNode]314, [1]: [CNode]301, [2]: @[CNode]60}
+#   2: ⥁cal_tuple_slice_mask.61:i{[0]: [CNode]313, [1]: [CNode]315, [2]: ValueNode<Int64Imm> 0}
+#   3: ⥁cal_tuple_slice_mask.61:slice_index{[0]: [CNode]313, [1]: [CNode]315, [2]: ValueNode<Int64Imm> 1}
+#   4: ⥁cal_tuple_slice_mask.61:[CNode]60{[0]: ValueNode<MultitypeFuncGraph> add.7, [1]: @[CNode]60, [2]: ValueNode<Int64Imm> 1}
+#   5: ⥁cal_tuple_slice_mask.61:[CNode]323{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS: 'Namespace:mindspore._extends.parse.trope', [2]: ValueNode<Symbol> MakeTuple}
+#   6: ⥁cal_tuple_slice_mask.61:[CNode]324{[0]: [CNode]323, [1]: slice_index, [2]: Φslice}
+#   7: ⥁cal_tuple_slice_mask.61:[CNode]316{[0]: Φisinstance, [1]: slice_index, [2]: Φslice}
+#   8: ⥁cal_tuple_slice_mask.61:[CNode]317{[0]: [CNode]312, [1]: [CNode]316}
+#   9: ⥁cal_tuple_slice_mask.61:[CNode]320{[0]: ValueNode<Primitive> Switch, [1]: [CNode]317, [2]: ValueNode<FuncGraph> ✓⥁cal_tuple_slice_mask.318, [3]: ValueNode<FuncGraph> ✗⥁cal_tuple_slice_mask.319}
+#  10: ⥁cal_tuple_slice_mask.61:[CNode]321{[0]: [CNode]320}
+#  11: ⥁cal_tuple_slice_mask.61:[CNode]322{[0]: ValueNode<Primitive> Return, [1]: [CNode]321}
+
+
+#===============================================================================
+# num of function graphs in stack: 18/28 (Ignored 10 internal frames).
